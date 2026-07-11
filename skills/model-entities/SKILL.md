@@ -37,10 +37,7 @@ The notes need a home. In order of preference:
    (On Linux: `~/.config/obsidian/obsidian.json`. On Windows: `%APPDATA%\obsidian\obsidian.json`.)
 
    The JSON lists vaults by path; entries with `"open": true` are the user's currently active vaults. If exactly one open vault clearly matches the product context (e.g. its path contains the product name), propose it. Otherwise list the candidates and ask.
-3. If no vault exists for this product, offer to create one. A vault is just a directory with an empty `.obsidian/` folder inside:
-   ```bash
-   mkdir -p "<path>/<VaultName>/.obsidian"
-   ```
+3. If no vault exists for this product, offer to create one at `<path>/<VaultName>`, then delegate to [[create-vault]] to bootstrap it — folders, templates, `.obsidian/templates.json`, and `.obsidian/graph.json` color groups, all in one idempotent call.
 
 ### 2. Propose the entity set before writing
 
@@ -59,7 +56,7 @@ Present the proposed list to the user with a one-line rationale per entity, and 
 
 ### 3. Create one entity at a time via `/create-entity`
 
-For each confirmed entity, delegate the file-writing to the [[create-entity]] skill. That skill owns the canonical artifact shape (frontmatter `tags: [entity]` + `relations:` block, prose elaboration, fields table, optional sections), handles vault prerequisites (`entities/` folder, `Templates/Entity.md`, `.obsidian/templates.json`), and refuses to overwrite existing files. **Do not rewrite that template inline here.**
+For each confirmed entity, delegate the file-writing to the [[create-entity]] skill. That skill owns the canonical artifact shape (frontmatter `tags: [entity]` + `relations:` block, prose elaboration, fields table, optional sections), delegates vault prerequisites (`entities/` folder, `Templates/Entity.md`, `.obsidian/templates.json`, graph color group) to [[create-vault]], and refuses to overwrite existing files. **Do not rewrite that template inline here.**
 
 Call it once per entity, passing:
 

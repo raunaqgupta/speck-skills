@@ -33,9 +33,7 @@ If any required input is missing, ask the user before writing.
 
 ### 1. Ensure vault prerequisites
 
-1. Confirm `<vault>/entities/` exists (`mkdir -p` if not).
-2. Confirm `<vault>/Templates/Entity.md` exists. If not, create it with the template at the bottom of this skill so future hand-creation in Obsidian uses the same shape. Do **not** overwrite an existing template.
-3. Confirm `<vault>/.obsidian/templates.json` points the core Templates plugin at `Templates/`. If the file is missing, write `{ "folder": "Templates" }`. If it exists with a different value, leave it.
+Delegate to [[create-vault]] with this vault path. It ensures `<vault>/entities/` exists, `<vault>/Templates/Entity.md` exists (writing it from its canonical template if missing, never overwriting an existing one), `<vault>/.obsidian/templates.json` points at `Templates/`, and `<vault>/.obsidian/graph.json` has a color group for the `entity` tag. It's idempotent — safe to call even if the vault is already fully set up. **Do not duplicate that setup logic here.**
 
 ### 2. Write the entity file
 
@@ -87,41 +85,4 @@ Rules for filling it in:
 
 Print the path written, the relations created, and any unresolved `[[wikilinks]]` (entities referenced that don't exist yet — these are candidates for the next call).
 
-## Reference template
-
-The file written to `<vault>/Templates/Entity.md` if it's missing — identical shape to the body above but with `{{title}}` placeholders so Obsidian's core Templates plugin can insert it into a new note:
-
-```markdown
----
-tags:
-  - entity
-relations:
-  belongs_to:
-    - "[[ ]]"
-  has_one:
-    - "[[ ]]"
-  has_many:
-    - "[[ ]]"
-  has_many_through:
-    - "[[ ]]"   # via [[ ]]
----
-
-A 1–3 sentence prose elaboration on what `{{title}}` is, the role it plays in the product, and why it exists. Reference other entities with `[[wiki links]]` where natural.
-
-## Fields
-
-| Field      | Type     | Notes       |
-| ---------- | -------- | ----------- |
-| id         | UUID     | Primary key |
-|            |          |             |
-| created_at | datetime |             |
-| updated_at | datetime |             |
-
-## Relationship notes
-
-- Use this section only when a relationship needs prose. Delete the section if every relation in the frontmatter speaks for itself.
-
-## Invariants
-
-- Rules that must always hold. Delete this section if there's nothing to say.
-```
+The canonical `Templates/Entity.md` body lives in [[create-vault]]'s Reference section — it's the single source of truth, so it isn't duplicated here.

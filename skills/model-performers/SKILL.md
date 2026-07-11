@@ -56,7 +56,7 @@ Present the list to the user and confirm before writing files. This proposal is 
 
 ### 4. Create one performer at a time via `/create-performer`
 
-For each confirmed performer, delegate the file-writing to the [[create-performer]] skill. That skill owns the canonical artifact shape (frontmatter `tags: [performer]` + `main_job` + optional `also_performs`, functional prose definition, Distinct From section, Context of Execution section), handles vault prerequisites (`performers/` folder, `Templates/Performer.md`, `.obsidian/templates.json`), and refuses to overwrite existing files. **Do not rewrite that template inline here.**
+For each confirmed performer, delegate the file-writing to the [[create-performer]] skill. That skill owns the canonical artifact shape (frontmatter `tags: [performer]` + `main_job` + optional `also_performs`, functional prose definition, Distinct From section, Context of Execution section), delegates vault prerequisites (`performers/` folder, `Templates/Performer.md`, `.obsidian/templates.json`, graph color group) to [[create-vault]], and refuses to overwrite existing files. **Do not rewrite that template inline here.**
 
 Call it once per performer, passing:
 

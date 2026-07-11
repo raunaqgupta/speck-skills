@@ -33,9 +33,7 @@ If any required input is missing, ask the user before writing.
 
 ### 1. Ensure vault prerequisites
 
-1. Confirm `<vault>/performers/` exists (`mkdir -p` if not).
-2. Confirm `<vault>/Templates/Performer.md` exists. If not, create it with the template at the bottom of this skill. Do **not** overwrite an existing template.
-3. Confirm `<vault>/.obsidian/templates.json` points the core Templates plugin at `Templates/`. If the file is missing, write `{ "folder": "Templates" }`. If it exists with a different value, leave it.
+Delegate to [[create-vault]] with this vault path. It ensures `<vault>/performers/` exists, `<vault>/Templates/Performer.md` exists (writing it from its canonical template if missing, never overwriting an existing one), `<vault>/.obsidian/templates.json` points at `Templates/`, and `<vault>/.obsidian/graph.json` has a color group for the `performer` tag. It's idempotent — safe to call even if the vault is already fully set up. **Do not duplicate that setup logic here.**
 
 ### 2. Write the performer file
 
@@ -76,27 +74,4 @@ Rules for filling it in:
 
 Print the path written, the main job linked, any secondary jobs linked, and any unresolved `[[wikilinks]]` (jobs that don't yet exist — candidates for the next call to `model-jobs`).
 
-## Reference template
-
-The file written to `<vault>/Templates/Performer.md` if it's missing:
-
-```markdown
----
-tags:
-  - performer
-main_job: "[[ ]]"
-also_performs:
-  - "[[ ]]"
----
-
-A 2–3 sentence functional definition of `{{title}}`: the act they execute, starting from the functional objective. No demographics or personal characteristics — the definition should hold regardless of which individual fills this role.
-
-## Distinct from
-
-- **<Adjacent role>** — <Why they are not the performer of this job.>
-- **<Adjacent role>** — ...
-
-## Context of execution
-
-<The triggering condition that activates this functional role — the situation, not the person.>
-```
+The canonical `Templates/Performer.md` body lives in [[create-vault]]'s Reference section — it's the single source of truth, so it isn't duplicated here.
