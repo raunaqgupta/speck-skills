@@ -1,25 +1,25 @@
 ---
 name: create-entity
-description: Write a single entity note into an Obsidian vault's `entities/` folder, using the canonical entity shape (frontmatter `tags: [entity]` + `relations:` block, prose elaboration, fields table, optional relationship notes and invariants). Use when the user wants to add one entity to an existing vault — "add an entity called X", "create a Notification entity", "model just one more thing" — and as the file-writing primitive that the `entity-modeling` skill delegates to once a full entity set has been proposed and confirmed. This skill owns the artifact shape; the parent `entity-modeling` skill owns the conversation and the multi-entity workflow.
+description: Write a single entity note into an Obsidian vault's `entities/` folder, using the canonical entity shape (frontmatter `tags: [entity]` + `relations:` block, prose elaboration, fields table, optional relationship notes and invariants). Use when the user wants to add one entity to an existing vault — "add an entity called X", "create a Notification entity", "model just one more thing" — and as the file-writing primitive that the `model-entities` skill delegates to once a full entity set has been proposed and confirmed. This skill owns the artifact shape; the parent `model-entities` skill owns the conversation and the multi-entity workflow.
 ---
 
 # Create Entity
 
-Writes one entity note to `<vault>/entities/<EntityName>.md` with the canonical shape used across this design system. Self-contained: can be invoked directly by a user (`/create-entity <Name>`) or delegated to by `entity-modeling` once a confirmed entity has been chosen.
+Writes one entity note to `<vault>/entities/<EntityName>.md` with the canonical shape used across this design system. Self-contained: can be invoked directly by a user (`/create-entity <Name>`) or delegated to by `model-entities` once a confirmed entity has been chosen.
 
 ## When to use
 
 - The user names a single entity to add: "add an Invoice entity", "create User.md".
-- A parent skill (`entity-modeling`) has confirmed an entity set and needs to write each file.
+- A parent skill (`model-entities`) has confirmed an entity set and needs to write each file.
 - The user is iterating in an existing vault and wants one more entity stood up quickly.
 
-Do **not** trigger this skill from cold context where the user hasn't yet identified a vault or proposed the broader entity set — that's `entity-modeling`'s job. This skill assumes those decisions are made.
+Do **not** trigger this skill from cold context where the user hasn't yet identified a vault or proposed the broader entity set — that's `model-entities`'s job. This skill assumes those decisions are made.
 
 ## Inputs
 
 The caller (user or parent skill) provides:
 
-1. **Vault path** — absolute path to the Obsidian vault root. If invoked directly without one, see [[entity-modeling]] step 1 to discover it.
+1. **Vault path** — absolute path to the Obsidian vault root. If invoked directly without one, see [[model-entities]] step 1 to discover it.
 2. **Entity name** — PascalCase singular (`Invoice`, `LineItem`, not `invoices`).
 3. **Prose elaboration** — 1–3 sentences explaining what the entity is, the role it plays, and why it exists. References to other entities with `[[wiki links]]` are encouraged.
 4. **Relations** — grouped by kind (`belongs_to`, `has_one`, `has_many`, `has_many_through`), each a list of `"[[OtherEntity]]"` strings. Any kind can be omitted if empty.

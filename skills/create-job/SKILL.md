@@ -1,25 +1,25 @@
 ---
 name: create-job
-description: Write a single job-to-be-done note into an Obsidian vault's `jobs/` folder, using the canonical job shape (frontmatter `tags: [job]`, `situation`, `outcome`, `touches` block linking entities by verb, all four Christensen forces, prose description, and a numbered Tasks list). Use when the user wants to add one job to an existing vault — "add a job for onboarding", "create a 'recover from overwhelm' job" — and as the file-writing primitive that the `jtbd-modeling` skill delegates to once a confirmed job set has been agreed. This skill owns the artifact shape; the parent `jtbd-modeling` skill owns the conversation and the multi-job workflow.
+description: Write a single job-to-be-done note into an Obsidian vault's `jobs/` folder, using the canonical job shape (frontmatter `tags: [job]`, `situation`, `outcome`, `touches` block linking entities by verb, all four Christensen forces, prose description, and a numbered Tasks list). Use when the user wants to add one job to an existing vault — "add a job for onboarding", "create a 'recover from overwhelm' job" — and as the file-writing primitive that the `model-jobs` skill delegates to once a confirmed job set has been agreed. This skill owns the artifact shape; the parent `model-jobs` skill owns the conversation and the multi-job workflow.
 ---
 
 # Create Job
 
-Writes one job note to `<vault>/jobs/<Sentence cased filename>.md` with the canonical shape used across this design system. Self-contained: can be invoked directly by a user (`/create-job "<job sentence>"`) or delegated to by `jtbd-modeling` once a confirmed job has been chosen.
+Writes one job note to `<vault>/jobs/<Sentence cased filename>.md` with the canonical shape used across this design system. Self-contained: can be invoked directly by a user (`/create-job "<job sentence>"`) or delegated to by `model-jobs` once a confirmed job has been chosen.
 
 ## When to use
 
 - The user names a single job to add: "add a 'review my finances' job", "create one for onboarding a teammate".
-- A parent skill (`jtbd-modeling`) has confirmed a job set and needs to write each file.
+- A parent skill (`model-jobs`) has confirmed a job set and needs to write each file.
 - The user is iterating in an existing vault and wants one more job stood up quickly.
 
-Do **not** trigger from cold context where the user hasn't yet identified a vault or framed the broader JTBD picture — that's `jtbd-modeling`'s job. This skill assumes those decisions are made.
+Do **not** trigger from cold context where the user hasn't yet identified a vault or framed the broader JTBD picture — that's `model-jobs`'s job. This skill assumes those decisions are made.
 
 ## Inputs
 
 The caller (user or parent skill) provides:
 
-1. **Vault path** — absolute path to the Obsidian vault root. If invoked directly without one, see [[jtbd-modeling]] step 1 to discover it.
+1. **Vault path** — absolute path to the Obsidian vault root. If invoked directly without one, see [[model-jobs]] step 1 to discover it.
 2. **Job sentence** — a verb phrase from the user's voice, used as the filename. Sentence case, no PascalCase: `Plan my week`, `Capture an idea`, `Recover from overwhelm`.
 3. **Situation** — the concrete trigger moment. "Sunday evening, looking at the week ahead" beats "during weekly planning."
 4. **Outcome** — the success state from the user's POV, not the product's. "User feels confident about Monday" not "App shows weekly view."

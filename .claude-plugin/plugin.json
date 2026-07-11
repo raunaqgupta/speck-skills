@@ -1,5 +1,5 @@
 {
-  "name": "atlas",
-  "description": "Define connected jobs, personas, and entities in an Obsidian vault.",
+  "name": "speck",
+  "description": "Define connected jobs, performers, entities, and workflows in an Obsidian vault.",
   "author": { "name": "Raunaq Gupta" }
 }
