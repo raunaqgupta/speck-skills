@@ -1,15 +1,15 @@
 ---
-name: jtbd-modeling
-description: Model the jobs-to-be-done (JTBD) of a product — the outcomes users hire it for, the situations that trigger them, the steps they walk through, and the four forces (push, pull, habit, anxiety) acting on the switch — by creating one Markdown note per job inside an Obsidian vault's `jobs/` folder. Use this skill whenever the user is brainstorming, scoping, or planning a product and the conversation touches on user motivation, outcomes, switch moments, "why people would use this," moments-of-use, customer interviews, or the JTBD framework explicitly. Trigger even if the user doesn't say "JTBD" — phrases like "what job does this do for the user?", "why would they switch?", "what's the moment they reach for this?", "model the user's goal", "what are people trying to accomplish?", or any conversation framing the product around user outcomes rather than features. Pairs with the entity-modeling skill: jobs reference entities via `[[wiki links]]` so the same vault holds both the data model and the motivation model.
+name: model-jobs
+description: Model the jobs-to-be-done (JTBD) of a product — the outcomes users hire it for, the situations that trigger them, the steps they walk through, and the four forces (push, pull, habit, anxiety) acting on the switch — by creating one Markdown note per job inside an Obsidian vault's `jobs/` folder. Use this skill whenever the user is brainstorming, scoping, or planning a product and the conversation touches on user motivation, outcomes, switch moments, "why people would use this," moments-of-use, customer interviews, or the JTBD framework explicitly. Trigger even if the user doesn't say "JTBD" — phrases like "what job does this do for the user?", "why would they switch?", "what's the moment they reach for this?", "model the user's goal", "what are people trying to accomplish?", or any conversation framing the product around user outcomes rather than features. Pairs with the model-entities and model-performers skills: jobs reference entities via `[[wiki links]]` and performers link to the jobs they execute, so the same vault holds the data model, the motivation model, and the people model.
 ---
 
-# JTBD Modeling
+# Job Modeling
 
 This skill turns product-planning conversations into a navigable set of job notes in an Obsidian vault. Each note describes one job-to-be-done: the situation that triggers it, the outcome the user is hiring the product for, the steps they walk through, and the four forces tugging at the switch. Jobs link to the [[entities]] they touch, so the vault holds both *what* the product is (entities) and *why* anyone would use it (jobs) in one graph.
 
 ## Why this exists
 
-A product's entity model tells you what it stores; its job model tells you what it's *for*. Without the job layer, feature decisions drift toward whatever's easy to build. With it, every entity, screen, and endpoint can be traced back to a user outcome someone is willing to switch for. Doing this in Obsidian — alongside the entities — means the two layers stay linked, and the graph view shows which entities serve which jobs.
+A product's entity model tells you what it stores; its job model tells you what it's *for*. Without the job layer, feature decisions drift toward whatever's easy to build. With it, every entity, screen, and endpoint can be traced back to a user outcome someone is willing to switch for. Doing this in Obsidian — alongside the entities and performers — means the three layers stay linked, and the graph view shows which entities serve which jobs and which performers execute which jobs.
 
 ## When to use
 
@@ -21,13 +21,13 @@ Trigger this skill when the user is **planning or validating** a product and the
 - "I want to do a JTBD breakdown of this idea."
 - The user has named entities and now needs to ground them in outcomes.
 
-Do **not** trigger when the user wants user personas (different framework), feature lists, or competitive analysis. JTBD is about *jobs people hire products to do*, not about who the people are.
+Do **not** trigger when the user wants to identify who executes the jobs (use [[model-performers]] for that), feature lists, or competitive analysis. JTBD is about *jobs people hire products to do*, not about who the people are.
 
 ## Workflow
 
 ### 1. Identify the vault
 
-Same as the [[entity-modeling]] skill. If a vault already exists for this product (likely, since jobs usually come after some entity work), use it. Otherwise see `entity-modeling`'s step 1 for the vault-discovery flow.
+Same as the [[model-entities]] skill. If a vault already exists for this product (likely, since jobs usually come after some entity work), use it. Otherwise see `model-entities`'s step 1 for the vault-discovery flow.
 
 ### 2. Propose the job set before writing
 
@@ -38,7 +38,7 @@ Read the product description and draft 3–7 candidate jobs. Lean toward fewer, 
 - **Episodic jobs** — rare but high-stakes moments (onboarding a teammate, recovering from a mistake, year-end review).
 - **Emotional jobs** — jobs that are really about how the user wants to *feel* (calm, in control, prepared).
 
-For each candidate, draft a one-line job statement in the Christensen form: **"When [situation], I want to [motivation], so I can [outcome]."** Present the list to the user, with the entities each job touches in parentheses. Confirm before writing files. Like entity-modeling, this is the single most valuable interaction in the skill.
+For each candidate, draft a one-line job statement in the Christensen form: **"When [situation], I want to [motivation], so I can [outcome]."** Present the list to the user, with the entities each job touches in parentheses. Confirm before writing files. Like model-entities, this is the single most valuable interaction in the skill.
 
 ### 3. Create one job at a time via `/create-job`
 
@@ -66,6 +66,8 @@ List the files. Offer next steps:
 - Add jobs they think are missing (especially episodic or emotional ones, which tend to get forgotten)
 - Drill into any job to flesh out tasks or sharpen the forces
 - Cross-check: every entity should be touched by at least one job. Entities no job needs are candidates for deletion.
+- Model the performers who execute these jobs with [[model-performers]] — each performer is defined by their main job and explicitly separated from adjacent roles (buyer, approver, reviewer)
+- Elaborate any job's thin `## Tasks` sketch into a full step sequence with [[model-workflows]] — and use it for job-less plumbing (login, session refresh) too, which has no home in this skill
 - Move on to UI screens or API endpoints — each can cite the job(s) it serves.
 
 ## Style notes

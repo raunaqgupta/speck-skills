@@ -1,5 +1,5 @@
 ---
-name: entity-modeling
+name: model-entities
 description: Model the domain entities (data model / schema / objects) of a product the user is planning to build, by creating one Markdown note per entity inside an Obsidian vault's `entities/` folder. Use this skill whenever the user is brainstorming, scoping, or planning a new product, app, feature, or service and the conversation touches on what "things" the system will have — users, items, records, entities, models, tables, resources, nouns. Trigger even if the user doesn't say "Obsidian" or "data model" explicitly: phrases like "I'm thinking about building…", "let's plan out…", "what entities would this need?", "model this app", "design the schema for…", or any product-planning discussion where naming the core nouns would unblock progress. Skill creates a durable, browsable knowledge graph (each entity links to related entities via `[[wiki links]]`) that the user can iterate on in Obsidian while they design.
 ---
 
@@ -81,6 +81,9 @@ After writing, list the files and offer next steps:
 - Add more entities they think are missing
 - Drill into any entity to flesh out fields, edge cases, or invariants
 - Create an Obsidian canvas linking the entities visually
+- Model the jobs this product does for users with [[model-jobs]] — jobs reference these entities via `[[wiki links]]`
+- Model the performers who execute those jobs with [[model-performers]] — each performer is defined by their main job and explicitly separated from adjacent roles
+- Model the interaction workflows that mutate these entities with [[model-workflows]] — each step's transition cites a real field from these entities' Fields tables
 - Move on to API endpoints or UI screens (which can also live in the vault, in sibling folders like `endpoints/` or `screens/`)
 
 ## Using `obsidian-cli` (optional)

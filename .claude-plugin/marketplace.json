@@ -1,0 +1,11 @@
+{
+  "name": "speck",
+  "owner": { "name": "Raunaq Gupta" },
+  "plugins": [
+    {
+      "name": "speck",
+      "source": "./",
+      "description": "Define connected jobs, performers, entities, and workflows in an Obsidian vault."
+    }
+  ]
+}
