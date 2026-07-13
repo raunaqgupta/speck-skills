@@ -29,7 +29,11 @@ Do **not** trigger when the user wants to identify who executes the jobs (use [[
 
 Same as the [[model-entities]] skill. If a vault already exists for this product (likely, since jobs usually come after some entity work), use it. Otherwise see `model-entities`'s step 1 for the vault-discovery flow.
 
-### 2. Propose the job set before writing
+### 2. Check for existing entities
+
+Before proposing jobs, check whether the vault has an `entities/` folder with entity notes. Jobs read/create/update entities via `touches` — if entities don't exist yet, offer to run [[model-entities]] first. Proceed without them only if the user wants to sketch jobs speculatively; flag which entities each job implies as unresolved links.
+
+### 3. Propose the job set before writing
 
 Read the product description and draft 3–7 candidate jobs. Lean toward fewer, sharper jobs over a long flat list — most products serve one or two **main jobs** plus a small set of **related jobs**. Common patterns:
 
@@ -40,7 +44,7 @@ Read the product description and draft 3–7 candidate jobs. Lean toward fewer, 
 
 For each candidate, draft a one-line job statement in the Christensen form: **"When [situation], I want to [motivation], so I can [outcome]."** Present the list to the user, with the entities each job touches in parentheses. Confirm before writing files. Like model-entities, this is the single most valuable interaction in the skill.
 
-### 3. Create one job at a time via `/create-job`
+### 4. Create one job at a time via `/create-job`
 
 For each confirmed job, delegate the file-writing to the [[create-job]] skill. That skill owns the canonical artifact shape (frontmatter `tags: [job]` + `situation` + `outcome` + `touches` + the four `forces`, prose description, numbered Tasks list), delegates vault prerequisites (`jobs/` folder, `Templates/Job.md`, `.obsidian/templates.json`, graph color group) to [[create-vault]], and refuses to overwrite existing files. **Do not rewrite that template inline here.**
 
@@ -59,7 +63,7 @@ Recommended order: write the **headline job** first, then habitual jobs, then ep
 
 If the user adds a job mid-flow ("also add one for offboarding"), just call `/create-job` once more. The separation exists for exactly this case.
 
-### 4. Show the user what was created
+### 5. Show the user what was created
 
 List the files. Offer next steps:
 

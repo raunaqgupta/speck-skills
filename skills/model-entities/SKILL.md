@@ -29,7 +29,7 @@ Do **not** trigger when the user is asking you to write code, generate an ER dia
 
 The vault belongs *inside the code repo being modeled*, not in some separate standalone location — so prefer finding or creating it there before falling back to a vault that lives elsewhere. In order of preference:
 
-1. If a parent skill (e.g. [[model]] sequencing multiple layers in one run) already resolved a vault path, use that — don't re-run discovery.
+1. If a parent skill (e.g. [[speck]] sequencing multiple layers in one run) already resolved a vault path, use that — don't re-run discovery.
 2. If the user named a vault, use it.
 3. Otherwise, check whether the current repo already has one: resolve [[create-vault]]'s default path (see its Inputs section — don't re-derive the formula here) and check whether `<that path>/.obsidian` exists. If it does, use it.
 4. Otherwise, check Obsidian's config for a pre-existing standalone vault that predates this convention:
