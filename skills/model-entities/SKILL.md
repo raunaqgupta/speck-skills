@@ -27,17 +27,18 @@ Do **not** trigger when the user is asking you to write code, generate an ER dia
 
 ### 1. Identify the vault
 
-The notes need a home. In order of preference:
+The vault belongs *inside the code repo being modeled*, not in some separate standalone location — so prefer finding or creating it there before falling back to a vault that lives elsewhere. In order of preference:
 
 1. If the user named a vault, use it.
-2. Otherwise, check Obsidian's config to find available vaults:
+2. Otherwise, check whether the current repo already has one: resolve [[create-vault]]'s default path (see its Inputs section — don't re-derive the formula here) and check whether `<that path>/.obsidian` exists. If it does, use it.
+3. Otherwise, check Obsidian's config for a pre-existing standalone vault that predates this convention:
    ```bash
    cat "$HOME/Library/Application Support/obsidian/obsidian.json"
    ```
    (On Linux: `~/.config/obsidian/obsidian.json`. On Windows: `%APPDATA%\obsidian\obsidian.json`.)
 
    The JSON lists vaults by path; entries with `"open": true` are the user's currently active vaults. If exactly one open vault clearly matches the product context (e.g. its path contains the product name), propose it. Otherwise list the candidates and ask.
-3. If no vault exists for this product, offer to create one at `<path>/<VaultName>`, then delegate to [[create-vault]] to bootstrap it — folders, templates, `.obsidian/templates.json`, and `.obsidian/graph.json` color groups, all in one idempotent call.
+4. If no vault exists for this product anywhere, delegate to [[create-vault]] with no path — it derives its default path itself, confirms with the user, and bootstraps it (folders, templates, `.obsidian/templates.json`, `.obsidian/graph.json` color groups) in one idempotent call.
 
 ### 2. Propose the entity set before writing
 
