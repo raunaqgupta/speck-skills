@@ -17,7 +17,10 @@ Do **not** use this to write an entity, job, performer, workflow, or system note
 
 ## Inputs
 
-1. **Vault path** — absolute path to the vault root. If invoked directly without one and the user hasn't named a location, ask. If delegated to by another skill, use whatever vault path that skill already resolved.
+1. **Vault path** — absolute path to the vault root. Resolve it in this order:
+   1. If delegated to by another skill that already resolved a vault path, use that as-is.
+   2. If the user named a location directly, use it.
+   3. Otherwise, derive a default: the vault lives *inside the code repo being modeled*, not in some separate standalone location. Find the repo root (`git rev-parse --show-toplevel` from the current working directory; if that fails, the current working directory itself), take its basename as `<repo-name>`, and default to `<repo-root>/speck-<repo-name>/`. Propose this path to the user and confirm before creating anything there — never create it silently.
 
 ## Workflow
 
