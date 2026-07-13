@@ -58,6 +58,8 @@ For each candidate, present:
 
 Present the list to the user and confirm before writing files. As with the other modeling skills, this proposal step is the most valuable interaction — it's where job-less workflows either get validated as genuinely job-less or get redirected back to [[model-jobs]] because a real situation/outcome was hiding underneath.
 
+**Skip-confirmation mode.** If the user has explicitly said something like "don't ask for confirmation, just write it" or "stop confirming with me," skip the wait: still show the proposed list above, then move straight to writing instead of pausing for a reply. Unless they scope it narrower ("just for this one," "just for workflows"), treat it as a standing preference for the rest of the session — covering every `model-*` skill and `speck` call from here on, since re-stating it each time would defeat the point. It reverts the moment the user asks to confirm again. Never infer this from a fast or approving reply; it has to be requested explicitly.
+
 ### 4. Create one workflow at a time via `/create-workflow`
 
 For each confirmed workflow, delegate the file-writing to the [[create-workflow]] skill. That skill owns the canonical artifact shape (frontmatter `tags: [workflow]` + `system` + optional `job`/`performer` + `touches`, prose description, Steps table with Action/Transition/Screen columns), delegates vault prerequisites (`workflows/` folder, `Templates/Workflow.md`, `.obsidian/templates.json`, graph color group) to [[create-vault]], links back from the anchor job's Tasks section, and refuses to overwrite existing files. **Do not rewrite that template inline here.**
