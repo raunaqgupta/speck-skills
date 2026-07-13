@@ -38,9 +38,7 @@ If any required input is missing, ask the user before writing.
 
 ### 1. Ensure vault prerequisites
 
-1. Confirm `<vault>/workflows/` exists (`mkdir -p` if not).
-2. Confirm `<vault>/Templates/Workflow.md` exists. If not, create it with the template at the bottom of this skill. Do **not** overwrite an existing template.
-3. Confirm `<vault>/.obsidian/templates.json` points the core Templates plugin at `Templates/`. If the file is missing, write `{ "folder": "Templates" }`. If it exists with a different value, leave it.
+Delegate to [[create-vault]] with this vault path. It ensures `<vault>/workflows/` exists, `<vault>/Templates/Workflow.md` exists (writing it from its canonical template if missing, never overwriting an existing one), `<vault>/.obsidian/templates.json` points at `Templates/`, and `<vault>/.obsidian/graph.json` has a color group for the `workflow` tag. It's idempotent — safe to call even if the vault is already fully set up. **Do not duplicate that setup logic here.**
 
 ### 2. Write the workflow file
 
@@ -96,36 +94,4 @@ If `job` is set, open that job's note and check its `## Tasks` section. If it do
 
 Print the path written, the job and performer linked (or noted as absent), the entities touched, and any unresolved `[[wikilinks]]` (screens or entities referenced that don't exist yet).
 
-## Reference template
-
-The file written to `<vault>/Templates/Workflow.md` if it's missing — identical shape to the body above but with `{{title}}` placeholders for Obsidian's core Templates plugin:
-
-```markdown
----
-tags:
-  - workflow
-system: "[[ ]]"
-job: "[[ ]]"
-performer: "[[ ]]"
-touches:
-  reads:
-    - "[[ ]]"
-  creates:
-    - "[[ ]]"
-  updates:
-    - "[[ ]]"
----
-
-A 1–3 sentence prose description of `{{title}}`: what it accomplishes, where it starts, where it ends. Omit the `job` frontmatter key entirely if this workflow has no job behind it.
-
-## Steps
-
-| # | Action | Transition | Screen |
-| - | ------ | ---------- | ------ |
-| 1 | | | *(not yet designed)* |
-| 2 | | | *(not yet designed)* |
-
-## Notes
-
-- Optional. Branching, ordering constraints, or open design questions. Delete if there's nothing to say.
-```
+The canonical `Templates/Workflow.md` body lives in [[create-vault]]'s Reference section — it's the single source of truth, so it isn't duplicated here.

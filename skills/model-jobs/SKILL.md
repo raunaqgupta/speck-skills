@@ -42,7 +42,7 @@ For each candidate, draft a one-line job statement in the Christensen form: **"W
 
 ### 3. Create one job at a time via `/create-job`
 
-For each confirmed job, delegate the file-writing to the [[create-job]] skill. That skill owns the canonical artifact shape (frontmatter `tags: [job]` + `situation` + `outcome` + `touches` + the four `forces`, prose description, numbered Tasks list), handles vault prerequisites (`jobs/` folder, `Templates/Job.md`, `.obsidian/templates.json`), and refuses to overwrite existing files. **Do not rewrite that template inline here.**
+For each confirmed job, delegate the file-writing to the [[create-job]] skill. That skill owns the canonical artifact shape (frontmatter `tags: [job]` + `situation` + `outcome` + `touches` + the four `forces`, prose description, numbered Tasks list), delegates vault prerequisites (`jobs/` folder, `Templates/Job.md`, `.obsidian/templates.json`, graph color group) to [[create-vault]], and refuses to overwrite existing files. **Do not rewrite that template inline here.**
 
 Call it once per job, passing:
 

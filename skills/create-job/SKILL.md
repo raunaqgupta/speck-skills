@@ -35,9 +35,7 @@ If any required input is missing, ask the user before writing.
 
 ### 1. Ensure vault prerequisites
 
-1. Confirm `<vault>/jobs/` exists (`mkdir -p` if not).
-2. Confirm `<vault>/Templates/Job.md` exists. If not, create it with the template at the bottom of this skill. Do **not** overwrite an existing template.
-3. Confirm `<vault>/.obsidian/templates.json` points the core Templates plugin at `Templates/`. If the file is missing, write `{ "folder": "Templates" }`. If it exists with a different value, leave it.
+Delegate to [[create-vault]] with this vault path. It ensures `<vault>/jobs/` exists, `<vault>/Templates/Job.md` exists (writing it from its canonical template if missing, never overwriting an existing one), `<vault>/.obsidian/templates.json` points at `Templates/`, and `<vault>/.obsidian/graph.json` has a color group for the `job` tag. It's idempotent — safe to call even if the vault is already fully set up. **Do not duplicate that setup logic here.**
 
 ### 2. Write the job file
 
@@ -92,43 +90,4 @@ Rules for filling it in:
 
 Print the path written, the entities touched (split by verb), and which forces, if any, were flagged as unidentified.
 
-## Reference template
-
-The file written to `<vault>/Templates/Job.md` if it's missing — identical shape to the body above but with `{{title}}` placeholders for Obsidian's core Templates plugin:
-
-```markdown
----
-tags:
-  - job
-situation: "<When does this job arise? The trigger — time of day, life event, recurring context.>"
-outcome: "<The success state from the user's POV. 'User feels X' or 'User has Y'.>"
-touches:
-  reads:
-    - "[[ ]]"
-  creates:
-    - "[[ ]]"
-  updates:
-    - "[[ ]]"
-forces:
-  push:
-    - "<Pain with the status quo that pushes them to switch>"
-  pull:
-    - "<Promise of the new solution that pulls them>"
-  habit:
-    - "<What they'd have to give up — familiarity, sunk cost>"
-  anxiety:
-    - "<What they fear might go wrong with the switch>"
----
-
-A 2–4 sentence prose description of `{{title}}`: who's doing it, what they're trying to accomplish, and the headline of the switch. Reference [[entities]] inline where natural.
-
-## Tasks
-
-1. <First task> — touches [[Entity]]
-2. <Second task>
-3. ...
-
-## Success criteria
-
-- <Optional. Observable signal the job is done well.>
-```
+The canonical `Templates/Job.md` body lives in [[create-vault]]'s Reference section — it's the single source of truth, so it isn't duplicated here.
