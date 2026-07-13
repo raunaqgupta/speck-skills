@@ -37,7 +37,15 @@ If any required input is missing, ask the user before writing.
 
 Delegate to [[create-vault]] with this vault path. It ensures `<vault>/jobs/` exists, `<vault>/Templates/Job.md` exists (writing it from its canonical template if missing, never overwriting an existing one), `<vault>/.obsidian/templates.json` points at `Templates/`, and `<vault>/.obsidian/graph.json` has a color group for the `job` tag. It's idempotent — safe to call even if the vault is already fully set up. **Do not duplicate that setup logic here.**
 
-### 2. Write the job file
+### 2. Screen for hollow forces before writing
+
+Before writing the file, count how many of the four forces are `"(none identified — revisit after user interviews)"`, or reduce to a circular restatement of "nothing changes" (e.g. `habit`: "none, nothing changes about how they already work"; `pull`: "nothing changes about how I do this today"). If **two or more** of the four forces are hollow or circular like this, stop and surface it back to the caller before writing — the same way step 3 refuses to silently overwrite an existing file:
+
+> "This job has only N substantive force(s) out of 4 — `<kind>` and `<kind>` both came back empty or circular. That combination is often a sign this is a capability or migration requirement dressed up as a job, not a real JTBD (see [[model-jobs]]'s proposal screen). Confirm this is a genuine thin-but-real job before I write it, or reconsider whether it belongs in the set."
+
+Wait for confirmation (or a reframed job) before proceeding. This is a flag, not a rejection: a caller who confirms the job is real (a legitimately thin episodic job with only two clear forces, say) should still get it written as-is. The goal is to stop a hollow-forces job from being written silently, not to mechanically block every thin one.
+
+### 3. Write the job file
 
 Write `<vault>/jobs/<Job sentence>.md` with this shape:
 
@@ -83,11 +91,11 @@ Rules for filling it in:
 - **`tags`** is always `[job]`. Never omit.
 - **Filename** is sentence-cased verb phrase — `Plan my week.md`, never `PlanMyWeek.md`, never `Weekly planning.md`.
 - **`touches`** — omit a verb-list (`reads`, `creates`, `updates`) entirely if empty.
-- **`forces`** — all four kinds are required entries. Write `"(none identified — revisit after user interviews)"` instead of dropping a force, so the gap is visible.
+- **`forces`** — all four kinds are required entries. Write `"(none identified — revisit after user interviews)"` instead of dropping a force, so the gap is visible. If two or more end up hollow or circular, that's the step 2 screen's job to catch before writing — don't silently write past it here.
 - **Don't overwrite** — if the job file already exists, stop and ask whether to replace, merge, or skip.
 
-### 3. Report
+### 4. Report
 
-Print the path written, the entities touched (split by verb), and which forces, if any, were flagged as unidentified.
+Print the path written, the entities touched (split by verb), which forces, if any, were flagged as unidentified, and whether the step 2 hollow-forces screen was triggered and how it was resolved.
 
 The canonical `Templates/Job.md` body lives in [[create-vault]]'s Reference section — it's the single source of truth, so it isn't duplicated here.
