@@ -25,7 +25,7 @@ Trigger this skill when the user is **planning or validating** a product and the
 
 Redirect gently when the user says "personas" but means functional roles — explain the distinction and proceed with performer modeling.
 
-Do **not** trigger for buyer analysis, market segmentation, or org chart mapping. Do **not** trigger when the user wants jobs (use [[model-jobs]]) or entities (use [[model-entities]]). Do **not** conflate the performer with adjacent roles like buyers, approvers, or reviewers — define those separately only if they also have jobs in the vault.
+Do **not** trigger for buyer analysis, market segmentation, or org chart mapping. Do **not** trigger when the user wants jobs (use [[model-jobs]]) or entities (use [[model-entities]]). Do **not** conflate the performer with adjacent roles like buyers, approvers, or reviewers — define those separately only if they also have jobs in the vault. Do **not** require jobs to exist before modeling performers — check for them, but proceed without it if the user wants to sketch performers speculatively (see step 2).
 
 ## Workflow
 

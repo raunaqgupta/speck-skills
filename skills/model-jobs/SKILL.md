@@ -21,7 +21,7 @@ Trigger this skill when the user is **planning or validating** a product and the
 - "I want to do a JTBD breakdown of this idea."
 - The user has named entities and now needs to ground them in outcomes.
 
-Do **not** trigger when the user wants to identify who executes the jobs (use [[model-performers]] for that), feature lists, or competitive analysis. JTBD is about *jobs people hire products to do*, not about who the people are.
+Do **not** trigger when the user wants to identify who executes the jobs (use [[model-performers]] for that), feature lists, or competitive analysis. JTBD is about *jobs people hire products to do*, not about who the people are. Do **not** require entities to exist before modeling jobs — check for them, but proceed without it if the user wants to sketch jobs speculatively (see step 2).
 
 ## Workflow
 
