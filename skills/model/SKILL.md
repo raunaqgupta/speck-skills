@@ -1,9 +1,9 @@
 ---
-name: speck
+name: model
 description: Model an entire product end-to-end in one command — entities, jobs, performers, and workflows — by sequencing the model-entities, model-jobs, model-performers, and model-workflows skills in dependency order against a single vault. Use when the user wants the full picture in one go rather than one layer at a time — "model this whole product", "let's fully map this app out", "set up the complete model for X: data, jobs, performers, and workflows", "I want everything mapped, not just the entities". If the user only wants a single layer ("just the entities", "what jobs would this need?"), trigger that layer's own model-* skill directly instead — this skill is specifically for requests that span multiple or all layers at once.
 ---
 
-# Speck
+# Model
 
 Runs the full modeling pipeline against one vault: entities, then jobs, then performers, then workflows — each layer delegated to its own skill, in the dependency order that lets later layers reference earlier ones (jobs touch entities, performers execute jobs, workflows carry out jobs via performers and touch entities). This skill sequences; it doesn't own any layer's artifact shape or proposal logic itself.
 
