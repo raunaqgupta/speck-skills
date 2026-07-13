@@ -168,7 +168,7 @@ forces:
     - "<What they fear might go wrong with the switch>"
 ---
 
-A 2–4 sentence prose description of `{{title}}`: who's doing it, what they're trying to accomplish, and the headline of the switch. Reference [[entities]] inline where natural.
+A 2–4 sentence prose description of `{{title}}`: who's doing it, what they're trying to accomplish, and the headline of the switch. Reference entities inline where natural.
 
 ## Tasks
 
