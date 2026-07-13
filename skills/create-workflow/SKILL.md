@@ -19,7 +19,7 @@ Do **not** trigger from cold context where the user hasn't yet identified a vaul
 
 The caller (user or parent skill) provides:
 
-1. **Vault path** — absolute path to the Obsidian vault root. If invoked directly without one, see [[model-workflows]] step 1 to discover it.
+1. **Vault path** — absolute path to the Obsidian vault root. If invoked directly without one, delegate to [[create-vault]] to resolve or create it.
 2. **Workflow name** — a verb phrase from the user's voice, used as the filename. Sentence case, no PascalCase: `Capture a task`, `Log in`, `Set a reminder` — same convention as job filenames.
 3. **System** — `[[wiki link]]` to the system this workflow belongs to, matching the `system` field already on entity, job, and performer notes in this vault.
 4. **Job** *(optional)* — a single `[[wiki link]]` to the job this workflow carries out. Omit entirely if this workflow has no job behind it (routine login, logout, session refresh — interactions that don't pass the JTBD test on their own).

@@ -27,18 +27,7 @@ Do **not** trigger when the user is asking you to write code, generate an ER dia
 
 ### 1. Identify the vault
 
-The vault belongs *inside the code repo being modeled*, not in some separate standalone location — so prefer finding or creating it there before falling back to a vault that lives elsewhere. In order of preference:
-
-1. If the user named a vault, use it.
-2. Otherwise, check whether the current repo already has one: resolve [[create-vault]]'s default path (see its Inputs section — don't re-derive the formula here) and check whether `<that path>/.obsidian` exists. If it does, use it.
-3. Otherwise, check Obsidian's config for a pre-existing standalone vault that predates this convention:
-   ```bash
-   cat "$HOME/Library/Application Support/obsidian/obsidian.json"
-   ```
-   (On Linux: `~/.config/obsidian/obsidian.json`. On Windows: `%APPDATA%\obsidian\obsidian.json`.)
-
-   The JSON lists vaults by path; entries with `"open": true` are the user's currently active vaults. If exactly one open vault clearly matches the product context (e.g. its path contains the product name), propose it. Otherwise list the candidates and ask.
-4. If no vault exists for this product anywhere, delegate to [[create-vault]] with no path — it derives its default path itself, confirms with the user, and bootstraps it (folders, templates, `.obsidian/templates.json`, `.obsidian/graph.json` color groups) in one idempotent call.
+Delegate to [[create-vault]] with no path (unless the user named one, in which case pass it along). It resolves an already-open or already-resolved vault, finds an existing in-repo or standalone vault, or proposes and creates a new one — see its Inputs section for the full resolution order. **Don't duplicate that logic here**, and don't look to any other `model-*` skill for it either — `create-vault` is the one place it's written, so this step behaves identically regardless of what has or hasn't run before it.
 
 ### 2. Propose the entity set before writing
 

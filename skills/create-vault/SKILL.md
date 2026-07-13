@@ -1,32 +1,39 @@
 ---
 name: create-vault
-description: Bootstraps the shared scaffolding a Speck-modeled Obsidian vault needs before any entity, job, performer, workflow, or system note can be written — the `entities/`, `jobs/`, `performers/`, `workflows/`, and `systems/` folders, all five canonical `Templates/*.md` files, `.obsidian/templates.json` pointing the core Templates plugin at `Templates/`, and `.obsidian/graph.json` color groups for each of the five tags. Idempotent: safe to call before every write, only fills in what's missing, never overwrites existing template content or touches unrelated `.obsidian` settings (zoom, physics, search filter, existing color groups). Use directly when the user wants to start a brand-new vault from scratch ("set up a vault for this", "create an empty vault at X") — and as the first thing every `create-entity`, `create-job`, `create-performer`, `create-workflow`, and `model-*` skill delegates to instead of duplicating this setup inline.
+description: Resolves or creates the Obsidian vault a Speck-modeled product lives in — finds an existing vault (parent-resolved path, user-named location, the in-repo default, or a pre-existing standalone vault in Obsidian's registry) and, if none exists, bootstraps a new one with the shared scaffolding every entity, job, performer, workflow, or system note needs: the `entities/`, `jobs/`, `performers/`, `workflows/`, and `systems/` folders, all five canonical `Templates/*.md` files, `.obsidian/templates.json` pointing the core Templates plugin at `Templates/`, and `.obsidian/graph.json` color groups for each of the five tags. Idempotent: safe to call before every write, only fills in what's missing, never overwrites existing template content or touches unrelated `.obsidian` settings (zoom, physics, search filter, existing color groups). Use directly when the user wants to find or start a vault ("where's the vault for this?", "set up a vault for this", "create an empty vault at X") — and as the first thing every `create-entity`, `create-job`, `create-performer`, `create-workflow`, and `model-*` skill delegates to for vault resolution, instead of each looking to a sibling skill for that logic.
 ---
 
 # Create Vault
 
-Ensures a directory at `<vault>` is a fully scaffolded Speck vault. Self-contained: can be invoked directly by a user (`/create-vault <path>`) or delegated to by any other skill in this plugin as its first step, before it writes a note of its own kind.
+Resolves an existing vault or bootstraps a new one at `<vault>`, fully scaffolded for Speck. Self-contained: can be invoked directly by a user (`/create-vault [path]`) or delegated to by any other skill in this plugin as its first step, before it does anything of its own — no skill should look to another skill (e.g. `model-entities`) for vault-resolution logic; they all come here, so this stays the one place it's written and no skill implicitly depends on another having run first.
 
 ## When to use
 
-- The user wants to start modeling a new product and no vault exists yet at the path they named.
-- Any `create-entity` / `create-job` / `create-performer` / `create-workflow` call, or any `model-*` skill's vault-discovery step, needs the vault's shared scaffolding to exist before it writes its own note. Those skills delegate here rather than repeating this logic.
-- The user asks to "set up a vault", "initialize a vault for X", or similar, with no note-writing implied yet.
+- Any skill in this plugin — `create-entity` / `create-job` / `create-performer` / `create-workflow`, any `model-*` skill, or `speck` — needs a vault path before it can do its own work, whether that means finding an existing one or creating a new one.
+- The user asks directly: "where's the vault for this?", "set up a vault for this", "initialize a vault for X".
 
-Do **not** use this to write an entity, job, performer, workflow, or system note — that's the job of the kind-specific `create-*` skill. This skill only ensures the vault itself is ready to receive one.
+Do **not** use this to write an entity, job, performer, workflow, or system note — that's the job of the kind-specific `create-*` skill. This skill only resolves and ensures the vault itself is ready to receive one.
 
 ## Inputs
 
 1. **Vault path** — absolute path to the vault root. Resolve it in this order:
    1. If delegated to by another skill that already resolved a vault path, use that as-is.
    2. If the user named a location directly, use it.
-   3. Otherwise, use the **default path** below. Propose it to the user and confirm before creating anything there — never create it silently.
+   3. Otherwise, check whether the current repo already has one: resolve the **default path** below and check whether `<default path>/.obsidian` exists. If it does, use it.
+   4. Otherwise, check Obsidian's config for a pre-existing standalone vault that predates the in-repo convention:
+      ```bash
+      cat "$HOME/Library/Application Support/obsidian/obsidian.json"
+      ```
+      (On Linux: `~/.config/obsidian/obsidian.json`. On Windows: `%APPDATA%\obsidian\obsidian.json`.)
+
+      The JSON lists vaults by path; entries with `"open": true` are the user's currently active vaults. If exactly one open vault clearly matches the product context (e.g. its path contains the product name), propose it. Otherwise list the candidates and ask.
+   5. If no vault exists for this product anywhere, use the **default path** below. Propose it to the user and confirm before creating anything there — never create it silently.
 
 ### Default path
 
 The vault lives *inside the code repo being modeled*, not in some separate standalone location. Find the repo root (`git rev-parse --show-toplevel` from the current working directory; if that fails, the current working directory itself), take its basename as `<repo-name>`, and default to `<repo-root>/speck-<repo-name>/`.
 
-This is the single source of truth for that formula. Other skills that need to know where the in-repo vault would live — e.g. [[model-entities]]'s vault-discovery step, checking whether it already exists before proposing to create it — reference this section rather than re-deriving the formula themselves.
+This is the single source of truth for that formula — no other skill re-derives it.
 
 ## Workflow
 

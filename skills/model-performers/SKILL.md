@@ -25,13 +25,13 @@ Trigger this skill when the user is **planning or validating** a product and the
 
 Redirect gently when the user says "personas" but means functional roles — explain the distinction and proceed with performer modeling.
 
-Do **not** trigger for buyer analysis, market segmentation, or org chart mapping. Do **not** trigger when the user wants jobs (use [[model-jobs]]) or entities (use [[model-entities]]). Do **not** conflate the performer with adjacent roles like buyers, approvers, or reviewers — define those separately only if they also have jobs in the vault.
+Do **not** trigger for buyer analysis, market segmentation, or org chart mapping. Do **not** trigger when the user wants jobs (use [[model-jobs]]) or entities (use [[model-entities]]). Do **not** conflate the performer with adjacent roles like buyers, approvers, or reviewers — define those separately only if they also have jobs in the vault. Do **not** require jobs to exist before modeling performers — check for them, but proceed without it if the user wants to sketch performers speculatively (see step 2).
 
 ## Workflow
 
 ### 1. Identify the vault
 
-Same as the [[model-entities]] skill. If a vault already exists for this product (likely, since performers usually come after job and entity work), use it. Otherwise see `model-entities`'s step 1 for the vault-discovery flow.
+Delegate to [[create-vault]] with no path (unless the user named one). It resolves an already-open or already-resolved vault, finds an existing in-repo or standalone vault, or proposes and creates a new one. Don't duplicate that logic here, and don't look to `model-entities` or any other `model-*` skill for it — `create-vault` is the one place it's written.
 
 ### 2. Check for existing jobs
 

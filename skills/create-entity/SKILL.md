@@ -19,7 +19,7 @@ Do **not** trigger this skill from cold context where the user hasn't yet identi
 
 The caller (user or parent skill) provides:
 
-1. **Vault path** — absolute path to the Obsidian vault root. If invoked directly without one, see [[model-entities]] step 1 to discover it.
+1. **Vault path** — absolute path to the Obsidian vault root. If invoked directly without one, delegate to [[create-vault]] to resolve or create it.
 2. **Entity name** — PascalCase singular (`Invoice`, `LineItem`, not `invoices`).
 3. **Prose elaboration** — 1–3 sentences explaining what the entity is, the role it plays, and why it exists. References to other entities with `[[wiki links]]` are encouraged.
 4. **Relations** — grouped by kind (`belongs_to`, `has_one`, `has_many`, `has_many_through`), each a list of `"[[OtherEntity]]"` strings. Any kind can be omitted if empty.
