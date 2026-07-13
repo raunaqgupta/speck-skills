@@ -29,7 +29,7 @@ Do **not** trigger when the user wants to know *why* someone would use the produ
 
 ### 1. Identify the vault
 
-Same as the [[model-entities]] skill. If a vault already exists for this product (likely, since workflows usually come after some job, performer, and entity work), use it. Otherwise see `model-entities`'s step 1 for the vault-discovery flow.
+Delegate to [[create-vault]] with no path (unless the user named one). It resolves an already-open or already-resolved vault, finds an existing in-repo or standalone vault, or proposes and creates a new one. Don't duplicate that logic here, and don't look to `model-entities` or any other `model-*` skill for it — `create-vault` is the one place it's written.
 
 ### 2. Check for existing jobs, performers, and entities
 

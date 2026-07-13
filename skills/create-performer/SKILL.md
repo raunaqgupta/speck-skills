@@ -19,7 +19,7 @@ Do **not** trigger from cold context where the user hasn't yet identified a vaul
 
 The caller (user or parent skill) provides:
 
-1. **Vault path** — absolute path to the Obsidian vault root. If invoked directly without one, see [[model-performers]] step 1 to discover it.
+1. **Vault path** — absolute path to the Obsidian vault root. If invoked directly without one, delegate to [[create-vault]] to resolve or create it.
 2. **Performer name** — a functional role label, not a personal name. Title-case noun phrase describing the act: `The Planner`, `The Capturer`, `The Collaborator`. Used as the filename.
 3. **Main job** — `[[wiki link]]` to the single job this performer is the executor of. The performer is *defined* by this job — it is not optional.
 4. **Also performs** — zero or more `[[wiki links]]` to secondary jobs this functional role also executes. Omit if none.

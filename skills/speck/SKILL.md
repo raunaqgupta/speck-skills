@@ -18,7 +18,7 @@ Do **not** trigger this for single-layer requests ("what entities would this nee
 
 ### 0. Identify the vault once, and detect what's already there
 
-Delegate to [[model-entities]]'s "Identify the vault" step to resolve a single vault path for this whole run. Every subsequent skill call below reuses that same path — none of them should re-run vault discovery.
+Delegate to [[create-vault]] with no path (unless the user named one) to resolve a single vault path for this whole run. Every subsequent skill call below reuses that same path — none of them should re-run vault discovery.
 
 If the resolved vault already has notes in one or more of `entities/`, `jobs/`, `performers/`, `workflows/`, tell the user which layers already have content and confirm whether to skip those and only run the empty ones, or re-propose additions on top of what's there. Don't silently skip or silently re-propose — ask.
 

@@ -19,7 +19,7 @@ Do **not** trigger from cold context where the user hasn't yet identified a vaul
 
 The caller (user or parent skill) provides:
 
-1. **Vault path** — absolute path to the Obsidian vault root. If invoked directly without one, see [[model-jobs]] step 1 to discover it.
+1. **Vault path** — absolute path to the Obsidian vault root. If invoked directly without one, delegate to [[create-vault]] to resolve or create it.
 2. **Job sentence** — a verb phrase from the user's voice, used as the filename. Sentence case, no PascalCase: `Plan my week`, `Capture an idea`, `Recover from overwhelm`.
 3. **Situation** — the concrete trigger moment. "Sunday evening, looking at the week ahead" beats "during weekly planning."
 4. **Outcome** — the success state from the user's POV, not the product's. "User feels confident about Monday" not "App shows weekly view."
