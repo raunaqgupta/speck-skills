@@ -42,7 +42,16 @@ Read the product description and draft 3–7 candidate jobs. Lean toward fewer, 
 - **Episodic jobs** — rare but high-stakes moments (onboarding a teammate, recovering from a mistake, year-end review).
 - **Emotional jobs** — jobs that are really about how the user wants to *feel* (calm, in control, prepared).
 
-For each candidate, draft a one-line job statement in the Christensen form: **"When [situation], I want to [motivation], so I can [outcome]."** Present the list to the user, with the entities each job touches in parentheses. Confirm before writing files. Like model-entities, this is the single most valuable interaction in the skill.
+For each candidate, draft a one-line job statement in the Christensen form: **"When [situation], I want to [motivation], so I can [outcome]."**
+
+**Before presenting the list, screen every candidate — not just the headline — against these checks.** This is a self-check pass over your own draft, not a mechanical gate: a genuinely thin-but-real job (a niche episodic job with only two clear forces, say) should still make the list if you judge it's real. The point is catching a specific failure mode — a capability or migration requirement dressed up in JTBD scaffolding — not raising the bar on job quality generally.
+
+- **Stranger test, applied to every candidate, not just the headline.** If a stranger heard this job stated plainly, would they say "oh, I'd use that" — or would you first have to explain the product's own mechanism before the "job" makes sense? A candidate that only lands once you already understand how the product works internally has failed this test.
+- **One level deeper than the mechanism.** Christensen's own example: nobody hires a drill for its own sake — they hire it to put a hole in the wall, and the hole is really in service of a hung picture. Check whether your draft stops at restating the product's own feature or mechanism (e.g. "collaborate live, no file conflicts") rather than naming the human outcome one level underneath it. If it reads like a feature-list entry with "I want to" bolted on, push it down a level.
+- **`outcome` should name a state achieved, not an absence.** "Nothing changes for the user," "no disruption to my workflow," "I don't have to give anything up" — these describe the absence of friction during a migration, not a state someone is hiring the product to reach. If the outcome you've drafted only negates something rather than naming what's now true, treat that as a sign the candidate is a requirement wearing job scaffolding.
+- **Hollow or circular forces are a tell, not just a gap to note.** Rough out all four forces for each candidate before finalizing the list (see step 4 for the full force-writing rules). If two or more come back "(none identified)" or reduce to circular restatements of "nothing changes" (habit: "none, nothing changes about how they work"; pull: "nothing changes about how I already do this"), that's a signal the candidate is a capability or migration requirement, not a job. Flag it and reconsider whether it belongs in the set, rather than writing the hollow forces later and moving on.
+
+A candidate that fails two or more of these checks should be cut or reframed one level toward the real outcome before it goes in front of the user. Present the surviving list to the user, with the entities each job touches in parentheses. Confirm before writing files. Like model-entities, this is the single most valuable interaction in the skill.
 
 ### 4. Create one job at a time via `/create-job`
 
