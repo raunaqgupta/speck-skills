@@ -67,7 +67,7 @@ If `<vault>/.obsidian/templates.json` is missing, write:
 
 If it already exists with a different value, leave it — the user may have a reason for a different template folder.
 
-### 5. Ensure `.obsidian/graph.json` has a color group for each kind
+### 5. Ensure `.obsidian/graph.json` has the template filter and a color group for each kind
 
 Each of the five kinds gets a fixed, stable color so the graph reads consistently across every vault this plugin sets up:
 
@@ -95,7 +95,10 @@ Each of the five kinds gets a fixed, stable color so the graph reads consistentl
     ]
   }
   ```
-- If it already exists, parse it and check `colorGroups` (create the array if the key is missing) for an entry whose `query` matches `tag:#<kind>` for each of the five kinds (ignore trailing whitespace differences when matching). Append an entry from the table above for any kind that's missing one. **Leave every other field untouched** — `scale`, `search`, physics settings (`centerStrength`, `repelStrength`, `linkDistance`, ...), and any color groups the user already added or recolored. Never reorder or rewrite existing entries.
+- If it already exists, don't just check whether the file is present — Obsidian itself writes a bare-default `graph.json` (empty `search`, empty `colorGroups`) the moment it indexes a new vault folder, often before this step runs, and that bootstrap default is not the same thing as a user's deliberate customization. Treat `colorGroups` and `search` accordingly, each on its own terms:
+  - **`colorGroups`** — create the array if the key is missing. Check for an entry whose `query` matches `tag:#<kind>` for each of the five kinds (ignore trailing whitespace differences when matching), and append an entry from the table above for any kind that's missing one. Never reorder or rewrite existing entries — those may be the user's own additions or recoloring.
+  - **`search`** — if it's empty or the key is missing, set it to `-tag:#template`. Only leave it as-is if it already holds some other non-empty value; a non-empty value is a real signal of deliberate customization, an empty one is just Obsidian's own unconfigured default and isn't something to preserve.
+  - **Leave every other field untouched** — `scale`, physics settings (`centerStrength`, `repelStrength`, `linkDistance`, ...), `collapse-filter`, `showOrphans`, and similar panel-state toggles. Unlike `search`, these are cosmetic display preferences rather than functional filters, so there's no bug in leaving Obsidian's own bootstrap values for them alone.
 
 ### 6. Report
 
