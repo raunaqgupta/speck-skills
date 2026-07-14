@@ -44,6 +44,8 @@ Common patterns to consider (use only if they fit):
 
 Present the proposed list to the user with a one-line rationale per entity, and confirm before writing files. Let them add, remove, or rename. This is the single most valuable interaction in the skill — a list the user shapes is a list they own.
 
+**Skip-confirmation mode.** If the user has explicitly said something like "don't ask for confirmation, just write it" or "stop confirming with me," skip the wait: still show the proposed list above, then move straight to writing instead of pausing for a reply. Unless they scope it narrower ("just for this one," "just for entities"), treat it as a standing preference for the rest of the session — covering every `model-*` skill and `speck` call from here on, since re-stating it each time would defeat the point. It reverts the moment the user asks to confirm again. Never infer this from a fast or approving reply; it has to be requested explicitly.
+
 ### 3. Create one entity at a time via `/create-entity`
 
 For each confirmed entity, delegate the file-writing to the [[create-entity]] skill. That skill owns the canonical artifact shape (frontmatter `tags: [entity]` + `relations:` block, prose elaboration, fields table, optional sections), delegates vault prerequisites (`entities/` folder, `Templates/Entity.md`, `.obsidian/templates.json`, graph color group) to [[create-vault]], and refuses to overwrite existing files. **Do not rewrite that template inline here.**

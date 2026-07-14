@@ -54,6 +54,8 @@ For each candidate, present:
 
 Present the list to the user and confirm before writing files. This proposal is the most valuable interaction in the skill — it surfaces conflation early.
 
+**Skip-confirmation mode.** If the user has explicitly said something like "don't ask for confirmation, just write it" or "stop confirming with me," skip the wait: still show the proposed list above, then move straight to writing instead of pausing for a reply. Unless they scope it narrower ("just for this one," "just for performers"), treat it as a standing preference for the rest of the session — covering every `model-*` skill and `speck` call from here on, since re-stating it each time would defeat the point. It reverts the moment the user asks to confirm again. Never infer this from a fast or approving reply; it has to be requested explicitly.
+
 ### 4. Create one performer at a time via `/create-performer`
 
 For each confirmed performer, delegate the file-writing to the [[create-performer]] skill. That skill owns the canonical artifact shape (frontmatter `tags: [performer]` + `main_job` + optional `also_performs`, functional prose definition, Distinct From section, Context of Execution section), delegates vault prerequisites (`performers/` folder, `Templates/Performer.md`, `.obsidian/templates.json`, graph color group) to [[create-vault]], and refuses to overwrite existing files. **Do not rewrite that template inline here.**
