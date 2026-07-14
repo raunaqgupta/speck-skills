@@ -129,12 +129,12 @@ A 1–3 sentence prose elaboration on what `{{title}}` is, the role it plays in 
 
 ## Fields
 
-| Field      | Type     | Notes       |
-| ---------- | -------- | ----------- |
-| id         | UUID     | Primary key |
-|            |          |             |
-| created_at | datetime |             |
-| updated_at | datetime |             |
+| Field      | Type       | Notes       |
+| ---------- | ---------- | ----------- |
+| id         | identifier | Primary key |
+|            |            |             |
+| created_at | datetime   |             |
+| updated_at | datetime   |             |
 
 ## Relationship notes
 
