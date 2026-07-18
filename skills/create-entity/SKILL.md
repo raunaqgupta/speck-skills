@@ -23,7 +23,7 @@ The caller (user or parent skill) provides:
 2. **Entity name** — PascalCase singular (`Invoice`, `LineItem`, not `invoices`).
 3. **Prose elaboration** — 1–3 sentences explaining what the entity is, the role it plays, and why it exists. References to other entities with `[[wiki links]]` are encouraged.
 4. **Relations** — grouped by kind (`belongs_to`, `has_one`, `has_many`, `has_many_through`), each a list of `"[[OtherEntity]]"` strings. Any kind can be omitted if empty.
-5. **Fields** — list of `(name, type, notes)` triples. Include `id`, `created_at`, `updated_at` by default unless the caller says otherwise.
+5. **Fields** — list of `(name, type, notes)` triples. Include `id`, `created_at`, `updated_at` by default unless the caller says otherwise. Types are conceptual (`string`, `number`, `date`, `boolean`, "one of: a, b, c"), never database-implementation vocabulary — see the Rules below.
 6. *(Optional)* **Relationship notes** — prose for ambiguous role names, optionality, cascade rules.
 7. *(Optional)* **Invariants** — rules that must always hold.
 
@@ -60,7 +60,7 @@ relations:
 
 | Field         | Type                 | Notes                                |
 | ------------- | -------------------- | ------------------------------------ |
-| id            | UUID                 | Primary key                          |
+| id            | identifier           | Primary key                          |
 | ...           | ...                  | ...                                  |
 | created_at    | datetime             |                                      |
 | updated_at    | datetime             |                                      |
@@ -78,6 +78,7 @@ Rules for filling it in:
 
 - **`tags`** is always `[entity]`. Never omit — this is how the vault's tag pane groups all entities.
 - **`relations`** — omit a kind entirely if it has no entries; don't write `belongs_to: []`. Omit the whole block if the entity has no relations.
+- **Fields table `Type` column is conceptual, never database-implementation vocabulary.** No `UUID` — write `identifier` (the conceptual fact is "uniquely identifies the record," already stated by "Primary key" in Notes; the physical format is an implementation decision this skill doesn't make). No `FK -> [[Other]]` rows — that relationship is already fully expressed by the `relations:` block; a Fields table row for it just duplicates a frontmatter entry as a pretend foreign-key column. If a relation's optionality or nuance needs saying, say it in prose in `## Relationship notes`, not as a Fields row. No SQL `enum(...)` syntax — write "one of: a, b, c" instead; the list of valid states is real domain knowledge, the SQL syntax isn't. No `JSON` as a type — write "structured data" or similar; how it's serialized is an implementation choice.
 - **Filename** — PascalCase singular, exact match to the entity name. `Task.md`, never `tasks.md`.
 - **Don't overwrite** — if `<vault>/entities/<EntityName>.md` already exists, stop and ask the user whether to replace, merge, or skip.
 
