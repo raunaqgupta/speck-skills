@@ -60,7 +60,7 @@ relations:
 
 | Field         | Type                 | Notes                                |
 | ------------- | -------------------- | ------------------------------------ |
-| id            | identifier           | Primary key                          |
+| id            | identifier           | unique identifier                    |
 | ...           | ...                  | ...                                  |
 | created_at    | datetime             |                                      |
 | updated_at    | datetime             |                                      |
@@ -78,7 +78,7 @@ Rules for filling it in:
 
 - **`tags`** is always `[entity]`. Never omit — this is how the vault's tag pane groups all entities.
 - **`relations`** — omit a kind entirely if it has no entries; don't write `belongs_to: []`. Omit the whole block if the entity has no relations.
-- **Fields table `Type` column is conceptual, never database-implementation vocabulary.** No `UUID` — write `identifier` (the conceptual fact is "uniquely identifies the record," already stated by "Primary key" in Notes; the physical format is an implementation decision this skill doesn't make). No `FK -> [[Other]]` rows — that relationship is already fully expressed by the `relations:` block; a Fields table row for it just duplicates a frontmatter entry as a pretend foreign-key column. If a relation's optionality or nuance needs saying, say it in prose in `## Relationship notes`, not as a Fields row. No SQL `enum(...)` syntax — write "one of: a, b, c" instead; the list of valid states is real domain knowledge, the SQL syntax isn't. No `JSON` as a type — write "structured data" or similar; how it's serialized is an implementation choice.
+- **Fields table `Type` column is conceptual, never database-implementation vocabulary.** No `UUID` — write `identifier` (the conceptual fact is "uniquely identifies the record," already stated by "unique identifier" in Notes; the physical format is an implementation decision this skill doesn't make). No `FK -> [[Other]]` rows — that relationship is already fully expressed by the `relations:` block; a Fields table row for it just duplicates a frontmatter entry as a pretend foreign-key column. If a relation's optionality or nuance needs saying, say it in prose in `## Relationship notes`, not as a Fields row. No SQL `enum(...)` syntax — write "one of: a, b, c" instead; the list of valid states is real domain knowledge, the SQL syntax isn't. No `JSON` as a type — write "structured data" or similar; how it's serialized is an implementation choice.
 - **Filename** — PascalCase singular, exact match to the entity name. `Task.md`, never `tasks.md`.
 - **Don't overwrite** — if `<vault>/entities/<EntityName>.md` already exists, stop and ask the user whether to replace, merge, or skip.
 
