@@ -131,7 +131,7 @@ A 1–3 sentence prose elaboration on what `{{title}}` is, the role it plays in 
 
 | Field      | Type       | Notes       |
 | ---------- | ---------- | ----------- |
-| id         | identifier | Primary key |
+| id         | identifier | Unique identifier |
 |            |            |             |
 | created_at | datetime   |             |
 | updated_at | datetime   |             |
