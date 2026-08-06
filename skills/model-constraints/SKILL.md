@@ -11,7 +11,7 @@ This skill turns implementation decisions into a navigable set of constraint not
 
 Implementation decisions have a way of leaking into functional notes — a surface note mentions "runs on-prem," a workflow step says "via OAuth," and suddenly notes meant to describe *what* the product is are also describing *how* it's built, with no single place that decision lives or that other notes can point back to. Constraints exist to hold that vocabulary explicitly, separated out, each one naming exactly which functional notes it binds via `applies_to` — so a functional note stays legible to someone who cares only about behavior, while the implementation commitment is still captured, findable, and traceable to its rationale.
 
-This is also why constraints behave differently from the other four layers. Entities, jobs, performers, and workflows are usually modeled in a batch early on, because a product's nouns, motivations, roles, and interactions mostly need to be sketched together to make sense of each other. Constraints don't work that way — they show up one at a time, at the moment a real implementation decision gets made ("we need to support the customer's own identity provider," decided mid-conversation), and forcing a bulk constraint-brainstorm before any implementation decisions exist would mean inventing constraints nothing has actually constrained yet.
+This is also why constraints behave differently from the other five layers. Entities, jobs, performers, surfaces, and workflows are usually modeled in a batch early on, because a product's nouns, motivations, roles, boundaries, and interactions mostly need to be sketched together to make sense of each other. Constraints don't work that way — they show up one at a time, at the moment a real implementation decision gets made ("we need to support the customer's own identity provider," decided mid-conversation), and forcing a bulk constraint-brainstorm before any implementation decisions exist would mean inventing constraints nothing has actually constrained yet.
 
 ## When to use
 
@@ -23,7 +23,7 @@ Trigger this skill when an implementation decision is being made or has just bee
 - A conversation about `code/` surfaces an implementation commitment that isn't yet a constraint note — capture it before moving on, rather than letting it live only in the conversation.
 - A review pass (see `speck`'s cross-check) finds an implementation commitment mentioned somewhere that was never written down as a constraint.
 
-Do **not** trigger for functional boundaries (what a surface is or isn't responsible for) — that's the Surface template via [[create-vault]], not a constraint. Do **not** trigger to brainstorm constraints speculatively with no real decision behind them — unlike the other four layers, an empty `constraints/` folder is a completely normal state for a product with no implementation commitments pinned down yet, not a gap to fill preemptively.
+Do **not** trigger for functional boundaries (what a surface is or isn't responsible for) — that's the Surface template via [[create-vault]], not a constraint. Do **not** trigger to brainstorm constraints speculatively with no real decision behind them — unlike the other five layers, an empty `constraints/` folder is a completely normal state for a product with no implementation commitments pinned down yet, not a gap to fill preemptively.
 
 ## Workflow
 
@@ -40,7 +40,7 @@ A constraint with nothing to bind isn't ready to be written. Check whether the n
 
 ### 3. Propose the constraint(s) before writing
 
-Unlike the other four layers, this is usually a proposal of one or two constraints, not a full-vault batch:
+Unlike the other five layers, this is usually a proposal of one or two constraints, not a full-vault batch:
 
 - **State it as a requirement, not a design.** "Auth must delegate to a team's own identity provider" is a constraint. "We'll use NextAuth with a generic OIDC provider" is an implementation detail for `code/`, not the model — if the proposed statement names a specific product, library, or vendor, push it back up one level of abstraction before proposing it.
 - **Name every note it applies to.** A constraint binds one or more functional notes via `applies_to`; if you can't name at least one, it isn't ready.
@@ -80,5 +80,5 @@ List the files. Offer next steps:
 - **One constraint per file, stated as a requirement.** Not "how we'll build it" — what must hold regardless of how.
 - **Filename is the statement.** `AI access is via MCP.md`, not `MCP Constraint.md` — a reader should be able to understand the commitment from the filename alone.
 - **`applies_to` is never empty.** A constraint that doesn't bind anything isn't a constraint yet.
-- **Don't front-load constraints.** It's normal, even expected, for `constraints/` to stay empty or thin until real implementation decisions start getting made. Resist proposing constraints just because the other four layers are done.
+- **Don't front-load constraints.** It's normal, even expected, for `constraints/` to stay empty or thin until real implementation decisions start getting made. Resist proposing constraints just because the other five layers are done.
 - **Keep implementation vocabulary here, not in functional notes.** If you catch a job, entity, performer, workflow, or surface note using words like "database," "hash," "websocket," or "heartbeat," that's a sign the commitment belongs in a constraint instead.

@@ -1,6 +1,6 @@
 ---
 name: model-workflows
-description: Model the concrete interaction workflows of a product — the ordered steps, screens, and entity-state transitions that carry out a job, or that stand alone with no job behind them (routine login, logout, session refresh) — by creating one Markdown note per workflow inside an Obsidian vault's `workflows/` folder. Use this skill whenever the user is designing or documenting how an interaction actually happens: "walk through the login flow", "what are the steps to capture a task", "design the interaction for X", "map the screens for this", or any conversation about the concrete sequence a performer moves through, as opposed to why they're motivated to. Trigger even when no job exists yet — many workflows (authentication, onboarding chrome, settings) are pure interaction design with no job-to-be-done of their own. Pairs with model-jobs (a workflow optionally elaborates one job's `## Tasks` sketch into a full step sequence), model-performers (who executes the workflow), and model-entities (the states each step transitions).
+description: Model the concrete interaction workflows of a product — the ordered steps, screens, and entity-state transitions that carry out a job, or that stand alone with no job behind them (routine login, logout, session refresh) — by creating one Markdown note per workflow inside an Obsidian vault's `workflows/` folder. Use this skill whenever the user is designing or documenting how an interaction actually happens: "walk through the login flow", "what are the steps to capture a task", "design the interaction for X", "map the screens for this", or any conversation about the concrete sequence a performer moves through, as opposed to why they're motivated to. Trigger even when no job exists yet — many workflows (authentication, onboarding chrome, settings) are pure interaction design with no job-to-be-done of their own. Pairs with model-jobs (a workflow optionally elaborates one job's `## Tasks` sketch into a full step sequence), model-performers (who executes the workflow), model-surfaces (which delivery boundary the workflow happens on — every workflow note cites one), and model-entities (the states each step transitions).
 ---
 
 # Workflow Modeling
@@ -31,29 +31,31 @@ Do **not** trigger when the user wants to know *why* someone would use the produ
 
 Delegate to [[create-vault]] with no path (unless the user named one). It resolves an already-open or already-resolved vault, finds an existing in-repo or standalone vault, or proposes and creates a new one. Don't duplicate that logic here, and don't look to `model-entities` or any other `model-*` skill for it — `create-vault` is the one place it's written.
 
-### 2. Check for existing jobs, performers, and entities
+### 2. Check for existing jobs, performers, surfaces, and entities
 
-Read the vault's `jobs/`, `performers/`, and `entities/` folders if present. For each candidate workflow:
+Read the vault's `jobs/`, `performers/`, `surfaces/`, and `entities/` folders if present. For each candidate workflow:
 
 - If it elaborates an existing job's `## Tasks` sketch, note that job as the anchor.
 - If it's plumbing with no job behind it (auth, session handling, generic navigation chrome), proceed without one — don't force a job link to make the frontmatter look complete.
 - Identify which performer executes it, if the vault has performer notes.
+- Identify which surface it happens on — `create-workflow`'s `surface` field is always present, so this needs a real answer. If a job is reachable through more than one surface (a human via the web app, an AI session via an API), that's a signal for more than one workflow, one per surface, not one workflow trying to cover both.
 - Identify which entities its steps will touch, so the `touches` block and transitions are grounded in real fields, not invented ones.
 
-If none of `jobs/`, `performers/`, or `entities/` exist yet, workflows can still be modeled speculatively, but flag to the user that the vault is thin and offer to run [[model-entities]] first — a workflow with no entities to transition is hard to make concrete.
+If `surfaces/` doesn't exist yet or doesn't cover the surface this workflow needs, offer to run [[model-surfaces]] first rather than guessing — don't invent a surface note reference that doesn't exist. If none of `jobs/`, `performers/`, or `entities/` exist yet either, workflows can still be modeled speculatively, but flag to the user that the vault is thin and offer to run [[model-entities]] first — a workflow with no entities to transition is hard to make concrete.
 
 ### 3. Propose the workflow set before writing
 
 Draft one workflow per distinct interaction sequence worth documenting. A few rules:
 
 - **One workflow per sequence, not per screen.** A workflow spans multiple steps/screens toward one accomplishment (capturing a task, logging in) — it isn't a single screen.
-- **Don't default to one workflow per job.** Some jobs (`Triage my inbox`) may need none if the existing Tasks sketch is sufficient; others may need more than one if there are genuinely distinct paths to the same outcome.
+- **Don't default to one workflow per job.** Some jobs (`Triage my inbox`) may need none if the existing Tasks sketch is sufficient; others may need more than one if there are genuinely distinct paths to the same outcome — including one per surface, when a job is reachable more than one way.
 - **Actively surface job-less workflows.** Scan for plumbing the vault hasn't captured anywhere — authentication, empty states, error recovery, settings — and propose them even though no job will anchor them.
 
 For each candidate, present:
 - Workflow name (verb phrase, matching job-naming convention)
 - The job it elaborates, if any (or explicitly "no job — standalone interaction")
 - The performer, if known
+- The surface it happens on
 - The entities its steps will likely touch
 
 Present the list to the user and confirm before writing files. As with the other modeling skills, this proposal step is the most valuable interaction — it's where job-less workflows either get validated as genuinely job-less or get redirected back to [[model-jobs]] because a real situation/outcome was hiding underneath.
