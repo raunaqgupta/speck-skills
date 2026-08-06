@@ -23,7 +23,7 @@ The caller (user or parent skill) provides:
 2. **Job sentence** — a verb phrase from the user's voice, used as the filename. Sentence case, no PascalCase: `Plan my week`, `Capture an idea`, `Recover from overwhelm`.
 3. **Situation** — the concrete trigger moment. "Sunday evening, looking at the week ahead" beats "during weekly planning."
 4. **Outcome** — the success state from the user's POV, not the product's. "User feels confident about Monday" not "App shows weekly view."
-5. **Entities touched** — grouped by verb: `reads`, `creates`, `updates`. Each a list of `"[[EntityName]]"` strings. Omit a verb-list entirely if empty.
+5. **Entities touched** — grouped by verb: `reads`, `creates`, `updates`, `deletes`. Each a list of `"[[EntityName]]"` strings. Omit a verb-list entirely if empty.
 6. **The four forces** — `push`, `pull`, `habit`, `anxiety`. Each a list of short phrases. All four are required; if one genuinely can't be named, write `"(none identified — revisit after user interviews)"` rather than fabricating.
 7. **Prose description** — 2–4 sentences describing who's doing the job, what they're trying to accomplish, and the headline of the switch.
 8. **Tasks** — numbered list of the user-visible steps the user walks through, each ideally mentioning the entity it touches.
@@ -90,7 +90,7 @@ Rules for filling it in:
 
 - **`tags`** is always `[job]`. Never omit.
 - **Filename** is sentence-cased verb phrase — `Plan my week.md`, never `PlanMyWeek.md`, never `Weekly planning.md`.
-- **`touches`** — omit a verb-list (`reads`, `creates`, `updates`) entirely if empty.
+- **`touches`** — omit a verb-list (`reads`, `creates`, `updates`, `deletes`) entirely if empty.
 - **`forces`** — all four kinds are required entries. Write `"(none identified — revisit after user interviews)"` instead of dropping a force, so the gap is visible. If two or more end up hollow or circular, that's the step 2 screen's job to catch before writing — don't silently write past it here.
 - **Don't overwrite** — if the job file already exists, stop and ask whether to replace, merge, or skip.
 

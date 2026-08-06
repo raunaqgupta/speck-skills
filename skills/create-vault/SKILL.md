@@ -162,6 +162,8 @@ touches:
     - "[[ ]]"
   updates:
     - "[[ ]]"
+  deletes:
+    - "[[ ]]"
 forces:
   push:
     - "<Pain with the status quo that pushes them to switch>"
@@ -224,6 +226,8 @@ touches:
   creates:
     - "[[ ]]"
   updates:
+    - "[[ ]]"
+  deletes:
     - "[[ ]]"
 ---
 

@@ -24,7 +24,7 @@ The caller (user or parent skill) provides:
 3. **Surface** — `[[wiki link]]` to the surface this workflow belongs to, matching the `surface` field already on entity, job, and performer notes in this vault.
 4. **Job** *(optional)* — a single `[[wiki link]]` to the job this workflow carries out. Omit entirely if this workflow has no job behind it (routine login, logout, session refresh — interactions that don't pass the JTBD test on their own).
 5. **Performer** *(optional)* — a single `[[wiki link]]` to the performer who executes this workflow. Omit if not yet known or not applicable.
-6. **Entities touched** — grouped by verb: `reads`, `creates`, `updates`. Each a list of `"[[EntityName]]"` strings. Omit a verb-list entirely if empty.
+6. **Entities touched** — grouped by verb: `reads`, `creates`, `updates`, `deletes`. Each a list of `"[[EntityName]]"` strings. Omit a verb-list entirely if empty.
 7. **Prose description** — 1–3 sentences: what this workflow accomplishes, where it starts, where it ends.
 8. **Steps** — an ordered list, each with:
    - **Action** — what the performer does, in plain language.
@@ -81,7 +81,7 @@ Rules for filling it in:
 - **`surface`** — always present, matching the convention on entity/job/performer notes.
 - **`job`** — omit the key entirely (not a blank string) if this workflow has no job behind it. Don't force a job link to make the frontmatter look complete.
 - **`performer`** — omit the key entirely if not yet known.
-- **`touches`** — omit a verb-list (`reads`, `creates`, `updates`) entirely if empty.
+- **`touches`** — omit a verb-list (`reads`, `creates`, `updates`, `deletes`) entirely if empty.
 - **Transition column** — write `[[Entity]]: <from> → <to>` when the step changes an entity's state (a field value, not necessarily a full row create/delete). Write `—` for steps that touch no entity state. Don't invent a transition to fill the cell.
 - **Screen column** — write `*(not yet designed)*` rather than skipping the column or fabricating a screen name. A workflow is complete without its screens designed.
 - **Don't overwrite** — if the workflow file already exists, stop and ask whether to replace, merge, or skip.
