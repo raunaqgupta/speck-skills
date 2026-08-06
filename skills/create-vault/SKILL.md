@@ -1,6 +1,6 @@
 ---
 name: create-vault
-description: Resolves or creates the Obsidian vault a Speck-modeled product lives in — finds an existing vault (parent-resolved path, user-named location, the in-repo default, or a pre-existing standalone vault in Obsidian's registry) and, if none exists, bootstraps a new one with the shared scaffolding every entity, job, performer, workflow, or system note needs: the `entities/`, `jobs/`, `performers/`, `workflows/`, and `systems/` folders, all five canonical `Templates/*.md` files, `.obsidian/templates.json` pointing the core Templates plugin at `Templates/`, and `.obsidian/graph.json` color groups for each of the five tags. Idempotent: safe to call before every write, only fills in what's missing, never overwrites existing template content or touches unrelated `.obsidian` settings (zoom, physics, search filter, existing color groups). Use directly when the user wants to find or start a vault ("where's the vault for this?", "set up a vault for this", "create an empty vault at X") — and as the first thing every `create-entity`, `create-job`, `create-performer`, `create-workflow`, and `model-*` skill delegates to for vault resolution, instead of each looking to a sibling skill for that logic.
+description: Resolves or creates the Obsidian vault a Speck-modeled product lives in — finds an existing vault (parent-resolved path, user-named location, the in-repo default, or a pre-existing standalone vault in Obsidian's registry) and, if none exists, bootstraps a new one with the shared scaffolding every entity, job, performer, workflow, system, or constraint note needs: the `entities/`, `jobs/`, `performers/`, `workflows/`, `systems/`, and `constraints/` folders, all six canonical `Templates/*.md` files, `.obsidian/templates.json` pointing the core Templates plugin at `Templates/`, and `.obsidian/graph.json` color groups for each of the six tags. Idempotent: safe to call before every write, only fills in what's missing, never overwrites existing template content or touches unrelated `.obsidian` settings (zoom, physics, search filter, existing color groups). Use directly when the user wants to find or start a vault ("where's the vault for this?", "set up a vault for this", "create an empty vault at X") — and as the first thing every `create-entity`, `create-job`, `create-performer`, `create-workflow`, `create-constraint`, and `model-*` skill delegates to for vault resolution, instead of each looking to a sibling skill for that logic.
 ---
 
 # Create Vault
@@ -9,10 +9,10 @@ Resolves an existing vault or bootstraps a new one at `<vault>`, fully scaffolde
 
 ## When to use
 
-- Any skill in this plugin — `create-entity` / `create-job` / `create-performer` / `create-workflow`, any `model-*` skill, or `speck` — needs a vault path before it can do its own work, whether that means finding an existing one or creating a new one.
+- Any skill in this plugin — `create-entity` / `create-job` / `create-performer` / `create-workflow` / `create-constraint`, any `model-*` skill, or `speck` — needs a vault path before it can do its own work, whether that means finding an existing one or creating a new one.
 - The user asks directly: "where's the vault for this?", "set up a vault for this", "initialize a vault for X".
 
-Do **not** use this to write an entity, job, performer, workflow, or system note — that's the job of the kind-specific `create-*` skill. This skill only resolves and ensures the vault itself is ready to receive one.
+Do **not** use this to write an entity, job, performer, workflow, system, or constraint note — that's the job of the kind-specific `create-*` skill. This skill only resolves and ensures the vault itself is ready to receive one.
 
 ## Inputs
 
@@ -45,15 +45,15 @@ mkdir -p "<vault>/.obsidian"
 
 If `<vault>` already existed with content in it (an existing vault, or a non-empty non-vault directory), proceed anyway — this step and the ones below are additive and never touch unrelated files.
 
-### 2. Ensure the five kind folders exist
+### 2. Ensure the six kind folders exist
 
 ```bash
-mkdir -p "<vault>/entities" "<vault>/jobs" "<vault>/performers" "<vault>/workflows" "<vault>/systems"
+mkdir -p "<vault>/entities" "<vault>/jobs" "<vault>/performers" "<vault>/workflows" "<vault>/systems" "<vault>/constraints"
 ```
 
-### 3. Ensure all five templates exist
+### 3. Ensure all six templates exist
 
-For each of `Entity`, `Job`, `Performer`, `Workflow`, `System`: if `<vault>/Templates/<Kind>.md` does not already exist, create `<vault>/Templates/` (if needed) and write it using the canonical body from the Reference section below. **Never overwrite an existing template** — if it's already there, leave it untouched even if its shape looks outdated; that's the user's customization to keep or change themselves.
+For each of `Entity`, `Job`, `Performer`, `Workflow`, `System`, `Constraint`: if `<vault>/Templates/<Kind>.md` does not already exist, create `<vault>/Templates/` (if needed) and write it using the canonical body from the Reference section below. **Never overwrite an existing template** — if it's already there, leave it untouched even if its shape looks outdated; that's the user's customization to keep or change themselves.
 
 Every template's frontmatter uses `tags: [template]`, never the kind-specific tag (`entity`, `job`, etc.). This is deliberate: real notes are tagged with their kind so the graph view and tag pane can group them, while template files are tagged `template` so `.obsidian/graph.json`'s `search: "-tag:#template"` filter (set up in step 5) hides them from the graph instead of appearing as phantom nodes.
 
@@ -69,7 +69,7 @@ If it already exists with a different value, leave it — the user may have a re
 
 ### 5. Ensure `.obsidian/graph.json` has the template filter and a color group for each kind
 
-Each of the five kinds gets a fixed, stable color so the graph reads consistently across every vault this plugin sets up:
+Each of the six kinds gets a fixed, stable color so the graph reads consistently across every vault this plugin sets up:
 
 | Kind | `query` | `rgb` |
 | --- | --- | --- |
@@ -78,8 +78,9 @@ Each of the five kinds gets a fixed, stable color so the graph reads consistentl
 | performer | `tag:#performer` | `11392604` |
 | workflow | `tag:#workflow` | `6084188` |
 | system | `tag:#system` | `6084269` |
+| constraint | `tag:#constraint` | `6073814` |
 
-(The five values rotate the same three magnitudes — `214`, `173`, `92` — through the R/G/B channels, so the five kinds land at evenly spaced points around the color wheel: red, orange, yellow-green, green, spring-green.)
+(The six values rotate the same three magnitudes — `214`, `173`, `92` — through the R/G/B channels, so the six kinds land at evenly spaced points around the color wheel: red, orange, yellow-green, green, spring-green, azure.)
 
 - If `<vault>/.obsidian/graph.json` doesn't exist, create it with:
   ```json
@@ -91,12 +92,13 @@ Each of the five kinds gets a fixed, stable color so the graph reads consistentl
       { "query": "tag:#job  ", "color": { "a": 1, "rgb": 14069084 } },
       { "query": "tag:#performer", "color": { "a": 1, "rgb": 11392604 } },
       { "query": "tag:#workflow", "color": { "a": 1, "rgb": 6084188 } },
-      { "query": "tag:#system", "color": { "a": 1, "rgb": 6084269 } }
+      { "query": "tag:#system", "color": { "a": 1, "rgb": 6084269 } },
+      { "query": "tag:#constraint", "color": { "a": 1, "rgb": 6073814 } }
     ]
   }
   ```
 - If it already exists, don't just check whether the file is present — Obsidian itself writes a bare-default `graph.json` (empty `search`, empty `colorGroups`) the moment it indexes a new vault folder, often before this step runs, and that bootstrap default is not the same thing as a user's deliberate customization. Treat `colorGroups` and `search` accordingly, each on its own terms:
-  - **`colorGroups`** — create the array if the key is missing. Check for an entry whose `query` matches `tag:#<kind>` for each of the five kinds (ignore trailing whitespace differences when matching), and append an entry from the table above for any kind that's missing one. Never reorder or rewrite existing entries — those may be the user's own additions or recoloring.
+  - **`colorGroups`** — create the array if the key is missing. Check for an entry whose `query` matches `tag:#<kind>` for each of the six kinds (ignore trailing whitespace differences when matching), and append an entry from the table above for any kind that's missing one. Never reorder or rewrite existing entries — those may be the user's own additions or recoloring (a vault's `constraint` entry may already exist with a hand-picked color from before this skill provisioned one automatically; leave it exactly as it is).
   - **`search`** — if it's empty or the key is missing, set it to `-tag:#template`. Only leave it as-is if it already holds some other non-empty value; a non-empty value is a real signal of deliberate customization, an empty one is just Obsidian's own unconfigured default and isn't something to preserve.
   - **Leave every other field untouched** — `scale`, physics settings (`centerStrength`, `repelStrength`, `linkDistance`, ...), `collapse-filter`, `showOrphans`, and similar panel-state toggles. Unlike `search`, these are cosmetic display preferences rather than functional filters, so there's no bug in leaving Obsidian's own bootstrap values for them alone.
 
@@ -104,7 +106,7 @@ Each of the five kinds gets a fixed, stable color so the graph reads consistentl
 
 Print what was created (folders, templates, config files) versus what already existed and was left alone. If this was a genuinely empty directory before step 1, say so plainly: "Bootstrapped a new vault at `<path>`."
 
-## Reference: the five templates
+## Reference: the six templates
 
 Each block below is written verbatim to `<vault>/Templates/<Kind>.md` when that file is missing.
 
@@ -261,4 +263,25 @@ A 2–3 sentence description of what `{{title}}` is responsible for: its boundar
 ## Provides
 
 - [[Job sentence]] — for <consumer>
+```
+
+### `Templates/Constraint.md`
+
+```markdown
+---
+tags:
+  - template
+applies_to:
+  - "[[ ]]"
+---
+
+A 1–3 sentence statement of the boundary `{{title}}` places on any implementation of this model: what must hold, stated as a requirement rather than a design. The functional notes it applies to stay implementation-free; the implementation commitment lives here.
+
+## Rationale
+
+Why this constraint exists — the need or decision behind it.
+
+## Implications
+
+- <What the constraint rules in or out for the notes it applies to. Delete if there's nothing to say.>
 ```
