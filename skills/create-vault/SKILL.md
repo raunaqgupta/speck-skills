@@ -1,6 +1,6 @@
 ---
 name: create-vault
-description: Resolves or creates the Obsidian vault a Speck-modeled product lives in — finds an existing vault (parent-resolved path, user-named location, the in-repo default, or a pre-existing standalone vault in Obsidian's registry) and, if none exists, bootstraps a new one with the shared scaffolding every entity, job, performer, workflow, system, or constraint note needs: the `entities/`, `jobs/`, `performers/`, `workflows/`, `systems/`, and `constraints/` folders, all six canonical `Templates/*.md` files, `.obsidian/templates.json` pointing the core Templates plugin at `Templates/`, and `.obsidian/graph.json` color groups for each of the six tags. Idempotent: safe to call before every write, only fills in what's missing, never overwrites existing template content or touches unrelated `.obsidian` settings (zoom, physics, search filter, existing color groups). Use directly when the user wants to find or start a vault ("where's the vault for this?", "set up a vault for this", "create an empty vault at X") — and as the first thing every `create-entity`, `create-job`, `create-performer`, `create-workflow`, `create-constraint`, and `model-*` skill delegates to for vault resolution, instead of each looking to a sibling skill for that logic.
+description: Resolves or creates the Obsidian vault a Speck-modeled product lives in — finds an existing vault (parent-resolved path, user-named location, the in-repo default, or a pre-existing standalone vault in Obsidian's registry) and, if none exists, bootstraps a new one with the shared scaffolding every entity, job, performer, workflow, surface, or constraint note needs: the `entities/`, `jobs/`, `performers/`, `workflows/`, `surfaces/`, and `constraints/` folders, all six canonical `Templates/*.md` files, `.obsidian/templates.json` pointing the core Templates plugin at `Templates/`, and `.obsidian/graph.json` color groups for each of the six tags. Idempotent: safe to call before every write, only fills in what's missing, never overwrites existing template content or touches unrelated `.obsidian` settings (zoom, physics, search filter, existing color groups). Use directly when the user wants to find or start a vault ("where's the vault for this?", "set up a vault for this", "create an empty vault at X") — and as the first thing every `create-entity`, `create-job`, `create-performer`, `create-workflow`, `create-constraint`, and `model-*` skill delegates to for vault resolution, instead of each looking to a sibling skill for that logic.
 ---
 
 # Create Vault
@@ -12,7 +12,7 @@ Resolves an existing vault or bootstraps a new one at `<vault>`, fully scaffolde
 - Any skill in this plugin — `create-entity` / `create-job` / `create-performer` / `create-workflow` / `create-constraint`, any `model-*` skill, or `speck` — needs a vault path before it can do its own work, whether that means finding an existing one or creating a new one.
 - The user asks directly: "where's the vault for this?", "set up a vault for this", "initialize a vault for X".
 
-Do **not** use this to write an entity, job, performer, workflow, system, or constraint note — that's the job of the kind-specific `create-*` skill. This skill only resolves and ensures the vault itself is ready to receive one.
+Do **not** use this to write an entity, job, performer, workflow, surface, or constraint note — that's the job of the kind-specific `create-*` skill. This skill only resolves and ensures the vault itself is ready to receive one.
 
 ## Inputs
 
@@ -48,12 +48,12 @@ If `<vault>` already existed with content in it (an existing vault, or a non-emp
 ### 2. Ensure the six kind folders exist
 
 ```bash
-mkdir -p "<vault>/entities" "<vault>/jobs" "<vault>/performers" "<vault>/workflows" "<vault>/systems" "<vault>/constraints"
+mkdir -p "<vault>/entities" "<vault>/jobs" "<vault>/performers" "<vault>/workflows" "<vault>/surfaces" "<vault>/constraints"
 ```
 
 ### 3. Ensure all six templates exist
 
-For each of `Entity`, `Job`, `Performer`, `Workflow`, `System`, `Constraint`: if `<vault>/Templates/<Kind>.md` does not already exist, create `<vault>/Templates/` (if needed) and write it using the canonical body from the Reference section below. **Never overwrite an existing template** — if it's already there, leave it untouched even if its shape looks outdated; that's the user's customization to keep or change themselves.
+For each of `Entity`, `Job`, `Performer`, `Workflow`, `Surface`, `Constraint`: if `<vault>/Templates/<Kind>.md` does not already exist, create `<vault>/Templates/` (if needed) and write it using the canonical body from the Reference section below. **Never overwrite an existing template** — if it's already there, leave it untouched even if its shape looks outdated; that's the user's customization to keep or change themselves.
 
 Every template's frontmatter uses `tags: [template]`, never the kind-specific tag (`entity`, `job`, etc.). This is deliberate: real notes are tagged with their kind so the graph view and tag pane can group them, while template files are tagged `template` so `.obsidian/graph.json`'s `search: "-tag:#template"` filter (set up in step 5) hides them from the graph instead of appearing as phantom nodes.
 
@@ -77,7 +77,7 @@ Each of the six kinds gets a fixed, stable color so the graph reads consistently
 | job | `tag:#job  ` | `14069084` |
 | performer | `tag:#performer` | `11392604` |
 | workflow | `tag:#workflow` | `6084188` |
-| system | `tag:#system` | `6084269` |
+| surface | `tag:#surface` | `6084269` |
 | constraint | `tag:#constraint` | `6073814` |
 
 (The six values rotate the same three magnitudes — `214`, `173`, `92` — through the R/G/B channels, so the six kinds land at evenly spaced points around the color wheel: red, orange, yellow-green, green, spring-green, azure.)
@@ -92,7 +92,7 @@ Each of the six kinds gets a fixed, stable color so the graph reads consistently
       { "query": "tag:#job  ", "color": { "a": 1, "rgb": 14069084 } },
       { "query": "tag:#performer", "color": { "a": 1, "rgb": 11392604 } },
       { "query": "tag:#workflow", "color": { "a": 1, "rgb": 6084188 } },
-      { "query": "tag:#system", "color": { "a": 1, "rgb": 6084269 } },
+      { "query": "tag:#surface", "color": { "a": 1, "rgb": 6084269 } },
       { "query": "tag:#constraint", "color": { "a": 1, "rgb": 6073814 } }
     ]
   }
@@ -215,7 +215,7 @@ A 2–3 sentence functional definition of `{{title}}`: the act they execute, sta
 ---
 tags:
   - template
-system: "[[ ]]"
+surface: "[[ ]]"
 job: "[[ ]]"
 performer: "[[ ]]"
 touches:
@@ -241,7 +241,7 @@ A 1–3 sentence prose description of `{{title}}`: what it accomplishes, where i
 - Optional. Branching, ordering constraints, or open design questions. Delete if there's nothing to say.
 ```
 
-### `Templates/System.md`
+### `Templates/Surface.md`
 
 ```markdown
 ---
@@ -258,7 +258,7 @@ A 2–3 sentence description of what `{{title}}` is responsible for: its boundar
 
 ## Not responsible for
 
-- **<Adjacent concern>** — owned by [[OtherSystem]] instead.
+- **<Adjacent concern>** — owned by [[OtherSurface]] instead.
 
 ## Provides
 

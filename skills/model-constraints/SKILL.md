@@ -1,15 +1,15 @@
 ---
 name: model-constraints
-description: Model the implementation commitments of a product — deployment modes, protocol choices, auth mechanisms, and similar boundaries a design must honor — by creating one Markdown note per constraint inside an Obsidian vault's `constraints/` folder, each linked via `applies_to` to the functional notes (entities, jobs, performers, workflows, systems) it binds. Use this skill when a specific implementation decision is being pinned down and needs to be captured so it can't silently drift: "this has to run on-prem too", "auth needs to support the customer's own SSO", "record that AI access only happens through MCP". Also trigger during a review pass to surface implementation commitments that came up in conversation but were never captured. Unlike entities/jobs/performers/workflows, constraints are typically proposed reactively, one or a few at a time, rather than brainstormed in bulk up front — most products only accumulate a handful. Pairs with every other layer: a constraint's whole purpose is to bind onto notes that must otherwise stay implementation-free.
+description: Model the implementation commitments of a product — deployment modes, protocol choices, auth mechanisms, and similar boundaries a design must honor — by creating one Markdown note per constraint inside an Obsidian vault's `constraints/` folder, each linked via `applies_to` to the functional notes (entities, jobs, performers, workflows, surfaces) it binds. Use this skill when a specific implementation decision is being pinned down and needs to be captured so it can't silently drift: "this has to run on-prem too", "auth needs to support the customer's own SSO", "record that AI access only happens through MCP". Also trigger during a review pass to surface implementation commitments that came up in conversation but were never captured. Unlike entities/jobs/performers/workflows, constraints are typically proposed reactively, one or a few at a time, rather than brainstormed in bulk up front — most products only accumulate a handful. Pairs with every other layer: a constraint's whole purpose is to bind onto notes that must otherwise stay implementation-free.
 ---
 
 # Constraint Modeling
 
-This skill turns implementation decisions into a navigable set of constraint notes in an Obsidian vault. Each note states one requirement a design must honor — a deployment mode, a protocol choice, an auth mechanism — and links via `applies_to` to the functional notes it binds. Constraints are what let entity, job, performer, workflow, and system notes stay implementation-free: instead of a system note quietly picking up a stray mention of "hosted or on-prem" or "auth delegates to an IDP," that commitment gets its own note, and the functional note just links to it.
+This skill turns implementation decisions into a navigable set of constraint notes in an Obsidian vault. Each note states one requirement a design must honor — a deployment mode, a protocol choice, an auth mechanism — and links via `applies_to` to the functional notes it binds. Constraints are what let entity, job, performer, workflow, and surface notes stay implementation-free: instead of a surface note quietly picking up a stray mention of "hosted or on-prem" or "auth delegates to an IDP," that commitment gets its own note, and the functional note just links to it.
 
 ## Why this exists
 
-Implementation decisions have a way of leaking into functional notes — a system note mentions "runs on-prem," a workflow step says "via OAuth," and suddenly notes meant to describe *what* the product is are also describing *how* it's built, with no single place that decision lives or that other notes can point back to. Constraints exist to hold that vocabulary explicitly, separated out, each one naming exactly which functional notes it binds via `applies_to` — so a functional note stays legible to someone who cares only about behavior, while the implementation commitment is still captured, findable, and traceable to its rationale.
+Implementation decisions have a way of leaking into functional notes — a surface note mentions "runs on-prem," a workflow step says "via OAuth," and suddenly notes meant to describe *what* the product is are also describing *how* it's built, with no single place that decision lives or that other notes can point back to. Constraints exist to hold that vocabulary explicitly, separated out, each one naming exactly which functional notes it binds via `applies_to` — so a functional note stays legible to someone who cares only about behavior, while the implementation commitment is still captured, findable, and traceable to its rationale.
 
 This is also why constraints behave differently from the other four layers. Entities, jobs, performers, and workflows are usually modeled in a batch early on, because a product's nouns, motivations, roles, and interactions mostly need to be sketched together to make sense of each other. Constraints don't work that way — they show up one at a time, at the moment a real implementation decision gets made ("we need to support the customer's own identity provider," decided mid-conversation), and forcing a bulk constraint-brainstorm before any implementation decisions exist would mean inventing constraints nothing has actually constrained yet.
 
@@ -23,7 +23,7 @@ Trigger this skill when an implementation decision is being made or has just bee
 - A conversation about `code/` surfaces an implementation commitment that isn't yet a constraint note — capture it before moving on, rather than letting it live only in the conversation.
 - A review pass (see `speck`'s cross-check) finds an implementation commitment mentioned somewhere that was never written down as a constraint.
 
-Do **not** trigger for functional boundaries (what a system is or isn't responsible for) — that's the System template via [[create-vault]], not a constraint. Do **not** trigger to brainstorm constraints speculatively with no real decision behind them — unlike the other four layers, an empty `constraints/` folder is a completely normal state for a product with no implementation commitments pinned down yet, not a gap to fill preemptively.
+Do **not** trigger for functional boundaries (what a surface is or isn't responsible for) — that's the Surface template via [[create-vault]], not a constraint. Do **not** trigger to brainstorm constraints speculatively with no real decision behind them — unlike the other four layers, an empty `constraints/` folder is a completely normal state for a product with no implementation commitments pinned down yet, not a gap to fill preemptively.
 
 ## Workflow
 
@@ -35,7 +35,7 @@ Delegate to [[create-vault]] with no path (unless the user named one). It resolv
 
 A constraint with nothing to bind isn't ready to be written. Check whether the notes it would apply to already exist:
 
-- If the entity/job/performer/workflow/system notes it binds already exist, proceed.
+- If the entity/job/performer/workflow/surface notes it binds already exist, proceed.
 - If they don't exist yet, either offer to model them first via the relevant skill, or write the constraint with an unresolved `[[wikilink]]` if the user wants to capture the commitment now and fill in the binding later — flag it as unresolved either way, don't silently guess.
 
 ### 3. Propose the constraint(s) before writing
@@ -81,4 +81,4 @@ List the files. Offer next steps:
 - **Filename is the statement.** `AI access is via MCP.md`, not `MCP Constraint.md` — a reader should be able to understand the commitment from the filename alone.
 - **`applies_to` is never empty.** A constraint that doesn't bind anything isn't a constraint yet.
 - **Don't front-load constraints.** It's normal, even expected, for `constraints/` to stay empty or thin until real implementation decisions start getting made. Resist proposing constraints just because the other four layers are done.
-- **Keep implementation vocabulary here, not in functional notes.** If you catch a job, entity, performer, workflow, or system note using words like "database," "hash," "websocket," or "heartbeat," that's a sign the commitment belongs in a constraint instead.
+- **Keep implementation vocabulary here, not in functional notes.** If you catch a job, entity, performer, workflow, or surface note using words like "database," "hash," "websocket," or "heartbeat," that's a sign the commitment belongs in a constraint instead.

@@ -1,6 +1,6 @@
 ---
 name: create-constraint
-description: Write a single constraint note into an Obsidian vault's `constraints/` folder, using the canonical constraint shape (frontmatter `tags: [constraint]` + `applies_to:` links to the functional notes it binds, a 1–3 sentence boundary statement, a Rationale section, and an optional Implications section). Use when the user wants to add one implementation commitment to an existing vault — "add a constraint that auth must support SSO", "record that this has to run on-prem", "pin down the deployment model as a constraint" — and as the file-writing primitive that the `model-constraints` skill delegates to once a confirmed constraint set has been agreed. This skill owns the artifact shape; the parent `model-constraints` skill owns the conversation and the multi-constraint proposal. A constraint states what must hold, as a requirement — never a design — keeping implementation vocabulary (protocols, deployment modes, auth mechanisms) out of the entity/job/performer/workflow/system notes it binds.
+description: Write a single constraint note into an Obsidian vault's `constraints/` folder, using the canonical constraint shape (frontmatter `tags: [constraint]` + `applies_to:` links to the functional notes it binds, a 1–3 sentence boundary statement, a Rationale section, and an optional Implications section). Use when the user wants to add one implementation commitment to an existing vault — "add a constraint that auth must support SSO", "record that this has to run on-prem", "pin down the deployment model as a constraint" — and as the file-writing primitive that the `model-constraints` skill delegates to once a confirmed constraint set has been agreed. This skill owns the artifact shape; the parent `model-constraints` skill owns the conversation and the multi-constraint proposal. A constraint states what must hold, as a requirement — never a design — keeping implementation vocabulary (protocols, deployment modes, auth mechanisms) out of the entity/job/performer/workflow/surface notes it binds.
 ---
 
 # Create Constraint
@@ -15,7 +15,7 @@ Writes one constraint note to `<vault>/constraints/<Constraint statement>.md` wi
 
 Do **not** trigger from cold context where the user hasn't yet identified a vault or agreed on the constraint set — that's `model-constraints`'s job. This skill assumes those decisions are made.
 
-Do **not** use this for functional boundaries (what a system is and isn't responsible for) — that's [[create-vault]]'s System template. A constraint is specifically an *implementation* commitment: a deployment mode, a protocol choice, an auth mechanism — something that would read as out-of-place vocabulary inside an entity, job, performer, workflow, or system note.
+Do **not** use this for functional boundaries (what a surface is and isn't responsible for) — that's [[create-vault]]'s Surface template. A constraint is specifically an *implementation* commitment: a deployment mode, a protocol choice, an auth mechanism — something that would read as out-of-place vocabulary inside an entity, job, performer, workflow, or surface note.
 
 ## Inputs
 

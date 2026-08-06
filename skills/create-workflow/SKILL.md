@@ -21,7 +21,7 @@ The caller (user or parent skill) provides:
 
 1. **Vault path** — absolute path to the Obsidian vault root. If invoked directly without one, delegate to [[create-vault]] to resolve or create it.
 2. **Workflow name** — a verb phrase from the user's voice, used as the filename. Sentence case, no PascalCase: `Capture a task`, `Log in`, `Set a reminder` — same convention as job filenames.
-3. **System** — `[[wiki link]]` to the system this workflow belongs to, matching the `system` field already on entity, job, and performer notes in this vault.
+3. **Surface** — `[[wiki link]]` to the surface this workflow belongs to, matching the `surface` field already on entity, job, and performer notes in this vault.
 4. **Job** *(optional)* — a single `[[wiki link]]` to the job this workflow carries out. Omit entirely if this workflow has no job behind it (routine login, logout, session refresh — interactions that don't pass the JTBD test on their own).
 5. **Performer** *(optional)* — a single `[[wiki link]]` to the performer who executes this workflow. Omit if not yet known or not applicable.
 6. **Entities touched** — grouped by verb: `reads`, `creates`, `updates`. Each a list of `"[[EntityName]]"` strings. Omit a verb-list entirely if empty.
@@ -48,7 +48,7 @@ Write `<vault>/workflows/<Workflow name>.md` with this shape:
 ---
 tags:
   - workflow
-system: "[[System]]"
+surface: "[[Surface]]"
 job: "[[Job sentence]]"
 performer: "[[Performer]]"
 touches:
@@ -78,7 +78,7 @@ Rules for filling it in:
 
 - **`tags`** is always `[workflow]`. Never omit.
 - **Filename** is a sentence-cased verb phrase — `Log in.md`, never `LogIn.md`, never `Login flow.md`.
-- **`system`** — always present, matching the convention on entity/job/performer notes.
+- **`surface`** — always present, matching the convention on entity/job/performer notes.
 - **`job`** — omit the key entirely (not a blank string) if this workflow has no job behind it. Don't force a job link to make the frontmatter look complete.
 - **`performer`** — omit the key entirely if not yet known.
 - **`touches`** — omit a verb-list (`reads`, `creates`, `updates`) entirely if empty.
