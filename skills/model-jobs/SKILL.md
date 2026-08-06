@@ -64,7 +64,7 @@ Call it once per job, passing:
 - Vault path
 - Job sentence (sentence-cased verb phrase: `Plan my week`, never `PlanMyWeek`)
 - Concrete `situation` and user-POV `outcome`
-- Entities touched, grouped by `reads` / `creates` / `updates`
+- Entities touched, grouped by `reads` / `creates` / `updates` / `deletes`
 - All four forces (`push`, `pull`, `habit`, `anxiety`) — write `"(none identified — revisit after user interviews)"` for any that genuinely can't be named, rather than dropping the kind
 - Prose description (2–4 sentences)
 - Numbered Tasks list with the entity each task touches

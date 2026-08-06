@@ -71,7 +71,7 @@ Call it once per workflow, passing:
 - Vault path and surface
 - Workflow name (sentence-cased verb phrase)
 - Job (if one exists) and performer (if known)
-- Entities touched, grouped by `reads` / `creates` / `updates`
+- Entities touched, grouped by `reads` / `creates` / `updates` / `deletes`
 - Prose description (1–3 sentences)
 - Ordered steps: action, transition (or `—`), screen (or `*(not yet designed)*`)
 
