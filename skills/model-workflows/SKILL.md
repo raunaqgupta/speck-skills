@@ -62,11 +62,11 @@ Present the list to the user and confirm before writing files. As with the other
 
 ### 4. Create one workflow at a time via `/create-workflow`
 
-For each confirmed workflow, delegate the file-writing to the [[create-workflow]] skill. That skill owns the canonical artifact shape (frontmatter `tags: [workflow]` + `system` + optional `job`/`performer` + `touches`, prose description, Steps table with Action/Transition/Screen columns), delegates vault prerequisites (`workflows/` folder, `Templates/Workflow.md`, `.obsidian/templates.json`, graph color group) to [[create-vault]], links back from the anchor job's Tasks section, and refuses to overwrite existing files. **Do not rewrite that template inline here.**
+For each confirmed workflow, delegate the file-writing to the [[create-workflow]] skill. That skill owns the canonical artifact shape (frontmatter `tags: [workflow]` + `surface` + optional `job`/`performer` + `touches`, prose description, Steps table with Action/Transition/Screen columns), delegates vault prerequisites (`workflows/` folder, `Templates/Workflow.md`, `.obsidian/templates.json`, graph color group) to [[create-vault]], links back from the anchor job's Tasks section, and refuses to overwrite existing files. **Do not rewrite that template inline here.**
 
 Call it once per workflow, passing:
 
-- Vault path and system
+- Vault path and surface
 - Workflow name (sentence-cased verb phrase)
 - Job (if one exists) and performer (if known)
 - Entities touched, grouped by `reads` / `creates` / `updates`
