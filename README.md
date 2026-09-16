@@ -1,6 +1,6 @@
 # Speck skills
 
-A Claude Code plugin that models a product into a local Obsidian vault through propose-and-confirm conversation, one layer at a time — entities, jobs, performers, surfaces, workflows, and constraints.
+A collection of skills that provide interconnected building blocks to design a product: jobs, performers, workflows, constraints, entities, and surfaces.
 
 ## Installation
 
