@@ -1,6 +1,8 @@
 # Speck skills
 
-A collection of skills that provide interconnected building blocks to design a product: jobs, performers, workflows, constraints, entities, and surfaces.
+A collection of skills to create, and refine interconnected building blocks to design products. It utilizes and combines ideas from the jobs-to-be-done framework, domain-driven design, and ontologies.
+
+Speck skills can be installed with any AI provider, and are best consumed using Obsidian.
 
 ## Installation
 
