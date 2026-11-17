@@ -4,6 +4,10 @@ A collection of skills to create, and refine interconnected building blocks to d
 
 Speck skills can be installed with any AI provider, and are best consumed using Obsidian.
 
+![The todo-app example vault open in Obsidian: notes grouped by kind in the file explorer, and the graph view showing how entities, jobs, performers, surfaces, workflows, and constraints link to each other](docs/images/obsidian-graph-view.png)
+
+*The [todo-app example](examples/todo-app/) open in Obsidian. Each kind of note gets its own folder and graph color, and the graph view shows how they link together.*
+
 ## Installation
 
 This repo is packaged as a **Claude Code plugin** (`.claude-plugin/plugin.json` + `.claude-plugin/marketplace.json` at the root). That's the fully-supported install path. Claude Desktop can run it too, via the same plugin marketplace — see caveats below.
