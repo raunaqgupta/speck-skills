@@ -48,6 +48,10 @@ Once installed, use naturally in conversation:
 
 Speck will propose a set, confirm with you, then write the notes.
 
+## Examples
+
+[`examples/todo-app/`](examples/todo-app/) is a complete vault for a to-do app, with notes for all six layers. See [`examples/README.md`](examples/README.md) for what it covers.
+
 ## Skills
 
 **`speck`** — Models a whole product in one command, in two passes: first entities, then jobs, then performers, then surfaces, then workflows, then a check for constraints, each layer delegated to its own skill below in dependency order, with a propose-and-confirm round per layer; then a second pass that applies each skill's own cross-checks against the now-complete model — catching gaps like a missing entity field, a thin job sketch that only became visible once workflows made things concrete, a job reachable two ways with only one surface covering it, or implementation vocabulary stranded in a functional note instead of pulled into a constraint. Use for "model this whole product" requests; use a single `model-*` skill directly when you only want one layer.
