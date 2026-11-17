@@ -4,6 +4,10 @@ A collection of skills to create, and refine interconnected building blocks to d
 
 Speck skills can be installed with any AI provider, and are best consumed using Obsidian.
 
+![The todo-app example vault open in Obsidian: notes grouped by kind in the file explorer, and the graph view showing how entities, jobs, performers, surfaces, workflows, and constraints link to each other](docs/images/obsidian-graph-view.webp)
+
+*The [todo-app example](examples/todo-app/) open in Obsidian. Each kind of note gets its own folder and graph color, and the graph view shows how they link together.*
+
 ## Installation
 
 This repo is packaged as a **Claude Code plugin** (`.claude-plugin/plugin.json` + `.claude-plugin/marketplace.json` at the root). That's the fully-supported install path. Claude Desktop can run it too, via the same plugin marketplace — see caveats below.
@@ -47,6 +51,10 @@ Once installed, use naturally in conversation:
 - "Add a Notification entity to the vault at ~/projects/my-app."
 
 Speck will propose a set, confirm with you, then write the notes.
+
+## Examples
+
+[`examples/todo-app/`](examples/todo-app/) is a complete vault for a to-do app, with notes for all six layers. See [`examples/README.md`](examples/README.md) for what it covers.
 
 ## Skills
 
