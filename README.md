@@ -4,7 +4,7 @@ A collection of skills to create, and refine interconnected building blocks to d
 
 Speck skills can be installed with any AI provider, and are best consumed using Obsidian.
 
-![The todo-app example vault open in Obsidian: notes grouped by kind in the file explorer, and the graph view showing how entities, jobs, performers, surfaces, workflows, and constraints link to each other](docs/images/obsidian-graph-view.webp)
+![The todo-app example vault open in Obsidian: notes grouped by kind in the file explorer, and the graph view showing how entities, jobs, performers, surfaces, workflows, and constraints link to each other](https://cdn.raunaqgupta.com/github/raunaqgupta/speck-skills/2026-11-17-7d630417-bd51-4add-a05b-c5afbbbd891e.webp)
 
 *The [todo-app example](examples/todo-app/) open in Obsidian. Each kind of note gets its own folder and graph color, and the graph view shows how they link together.*
 
